@@ -1,14 +1,28 @@
-import logo from "./rviewer-logo.svg";
-import styles from './Header.module.css'
+import { useSelector } from 'react-redux'
+/* Store */
+import { RootState, useAppDispatch } from '../../services/Store'
+import ThemeSlice from '../../application/Theme'
 
-export function Header() {
+/* Styles */
+import styles from './Header.styles'
+
+export const Header = () => {
+    const dispatch = useAppDispatch();
+    const classes: any = styles()
+
+    const { dark } = useSelector((state: RootState) => state.Theme);
+    const { setTheme } = ThemeSlice.actions;
+
+    const handleChangeTheme = (dark) => {
+        dispatch(setTheme(!dark))
+    }
 
     return (
-        <header className={styles.header}>
-            <img width={80} src={logo} className={styles.rviewerLogo} alt="Rviewer logo"/>
-            <h3>
-                Welcome to the Rviewer React skeleton!
-            </h3>
-        </header>
+        <div className={classes.root}>
+            <section>
+                This is a Header
+                <button onClick={() => handleChangeTheme(dark)}>{dark ? 'Dark' : 'Light'}</button>
+            </section>
+        </div>
     )
 }

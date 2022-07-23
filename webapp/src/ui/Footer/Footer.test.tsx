@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { Header } from "./Header";
+import { Footer } from "./Footer";
 
-test('Header renders code section', () => {
-  render(<Header />);
+test('Footer renders code section', () => {
+  render(<Footer />);
   const codeMessage = screen.getByText("src/App.tsx");
   expect(codeMessage).toBeInTheDocument();
 });
