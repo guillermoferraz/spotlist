@@ -1,4 +1,15 @@
-export interface ThemeTypes {
-    backgroundColor: string;
-    color: string;
-}
+export type ThemeGlobalTypes = {
+    minHeight: string;
+    padding: number;
+    margin: number;
+};
+
+export interface ThemeTypes extends ThemeGlobalTypes {
+    bgPrimary: string;
+    bgSecondary: string;
+    bgLight: string,
+    colorPrimary: string;
+    colorHover: string;
+    colorPalletPrimary: string;
+    bgHover: string;
+};

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 /* Store */
 import { Provider } from "react-redux";
@@ -6,6 +6,7 @@ import store from './services/Store'
 
 /* UI Components */
 import { Home } from "./ui/Home";
+import { Signin } from "./ui/Signin";
 import { Footer } from "./ui/Footer";
 import { Header } from './ui/Header';
 
@@ -16,11 +17,15 @@ function App() {
   return (
     <Router>
       <Provider store={store}>
-        <Header/>
+        <Header />
         <div className={styles.App}>
-          <Home />
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="*" element={<div><h1>Lo siento no hay resultado 404</h1></div>} />
+          </Routes>
         </div>
-        <Footer/>
+        <Footer />
       </Provider>
     </Router>
   )
