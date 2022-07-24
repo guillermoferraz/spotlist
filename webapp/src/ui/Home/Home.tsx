@@ -25,8 +25,6 @@ export const Home = () => {
   return (
     <div className={styles.home}>
       <title>Spotlist | Home</title>
-      <h1>{t.title}</h1>
-      <p>{t.description}</p>
       <button onClick={() => handleData()}>Test Dispatch</button>
       <h1>{signinResponse.email || ""}</h1>
       <h1>{signinResponse.password || ""}</h1>

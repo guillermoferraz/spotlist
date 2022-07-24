@@ -33,9 +33,9 @@ export const Header = () => {
                 <button onClick={() => handleChangeLng('es')}>{t.es}</button>
                 <button onClick={() => handleChangeLng('en')}>{t.en}</button> */}
             <section className={classes.logo} onClick={() => navigate('/') }>
-                <img src="img/logo.png" alt="Spotlist logo"/>
+                <img src="img/logo.png" alt="Spotlist logo" title="Spotlist"/>
             </section>
-            <h1 className={classes.title}>Spotlist</h1>
+            <h1 className={classes.title} onClick={() => navigate('/')} title="Spotlist">Spotlist</h1>
             <section className={classes.iconSetting}>
                 <div onClick={handleClick}>
                     <TuneIcon/>

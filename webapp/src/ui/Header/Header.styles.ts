@@ -27,12 +27,18 @@ const styles = makeStyles({
     '&>img':{
       width: '100%',
       height: '100%'
+    },
+    '&:hover':{
+      cursor: 'pointer'
     }
   },
   title:{
     color: (props: ThemeTypes) => props.colorPalletPrimary,
     fontSize: '0.9rem',
-    marginLeft: 10
+    marginLeft: 10,
+    '&:hover':{
+      cursor: 'pointer'
+    }
   }
 });
 export default styles;

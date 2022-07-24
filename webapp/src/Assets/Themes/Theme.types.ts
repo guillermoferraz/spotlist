@@ -15,4 +15,5 @@ export interface ThemeTypes extends ThemeGlobalTypes {
     bgHover: string;
     darkMode: string;
     lightMode: string;
+    error?: boolean
 };
