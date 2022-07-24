@@ -1,20 +1,19 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../services/Store";
 
 /* Modules */
-import { Logo } from '../../components/modules/Logo';
-import { Textfield } from "../../components/modules/Textfield";
-import { ButtonModule } from '../../components/modules/Button';
+import { Logo } from 'src/components/modules/Atoms/Logo';
+import { Textfield } from "src/components/modules/Atoms/Textfield";
+import { ButtonModule } from 'src/components/modules/Atoms/Button';
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import styles from './Signup.styles';
 
-import { SignupTypes, CONSTANTS_ENTRY } from "../../components/schemas/Auth.Schema";
-import { isValidEmail, isValidPassword } from "../../application/Validators";
+import { SignupTypes, CONSTANTS_ENTRY } from "src/components/schemas/Auth.Schema";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ export const Signup = () => {
     confPassword: '',
     validConfPassword: false
   });
-  // console.log(registerData)
+  console.log(registerData)
 
   const handleSubmit = () => {
     console.log('submit data')
@@ -54,45 +53,49 @@ export const Signup = () => {
         <form className={classes.form} onSubmit={handleSubmit} action="#">
           <div className={classes.containerInput}>
             <Textfield
-              id="email-signup"
+              id={`${CONSTANTS_ENTRY.email}-signup`}
+              name={CONSTANTS_ENTRY.email}
               label={t.labels.email}
               error={false}
               helperText={"Error en email"}
               autocomplete={false}
-              type="email"
+              type={CONSTANTS_ENTRY.email}
               onChange={(event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.email })}
             />
           </div>
           <div className={classes.containerInput}>
             <Textfield
-              id="confEmail"
+              id={`${CONSTANTS_ENTRY.confEmail}-signup`}
+              name={CONSTANTS_ENTRY.confEmail}
               label={t.labels.confEmail}
               error={false}
               helperText={"Error en email"}
               autocomplete={false}
-              type="email"
+              type={CONSTANTS_ENTRY.email}
               onChange={(event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confEmail })}
             />
           </div>
           <div className={classes.containerInput}>
             <Textfield
-              id="password-signup"
+              id={`${CONSTANTS_ENTRY.password}-signup`}
+              name={CONSTANTS_ENTRY.password}
               label={t.labels.password}
               error={false}
               helperText={"Error en password"}
               autocomplete={false}
-              type="password"
+              type={CONSTANTS_ENTRY.password}
               onChange={(event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.password })}
             />
           </div>
           <div className={classes.containerInput}>
             <Textfield
-              id="confPassword"
+              id={`${CONSTANTS_ENTRY.confPassword}-signup`}
+              name={CONSTANTS_ENTRY.confPassword}
               label={t.labels.confPassword}
               error={false}
               helperText={"Error en password"}
               autocomplete={false}
-              type="password"
+              type={CONSTANTS_ENTRY.password}
               onChange={(event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confPassword })}
             />
           </div>

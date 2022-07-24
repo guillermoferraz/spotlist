@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { RootState, useAppDispatch } from '../../services/Store';
-import { Signin } from '../../application/Auth';
+import { RootState, useAppDispatch } from 'src/services/Store';
+import { Signin } from 'src/application/Auth';
 
 import styles from './Home.module.css'
 import { useEffect } from 'react';

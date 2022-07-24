@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import AuthService from "../services/Auth";
-import { SigninTypes } from "../components/schemas/Auth.Schema";
+import AuthService from "src/services/Auth";
+import { SigninTypes } from "src/components/schemas/Auth.Schema";
 
 export const Signin = createAsyncThunk("account/signin", async (data: SigninTypes) => {
   try {

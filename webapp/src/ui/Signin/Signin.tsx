@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { RootState } from "../../services/Store";
+import { RootState } from "src/services/Store";
 
 /* Modules */
-import { Logo } from '../../components/modules/Logo';
-import { Textfield } from "../../components/modules/Textfield";
-import { ButtonModule } from '../../components/modules/Button';
+import { Logo } from 'src/components/modules/Atoms/Logo';
+import { Textfield } from "src/components/modules/Atoms/Textfield";
+import { ButtonModule } from 'src/components/modules/Atoms/Button';
+
+import { CONSTANTS_ENTRY } from "src/components/schemas/Auth.Schema";
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
@@ -32,24 +34,26 @@ export const Signin = () => {
         <form className={classes.form} onSubmit={handleSubmit} action="#">
           <div className={classes.containerInput}>
             <Textfield
-              id="email-signin"
+              id={`${CONSTANTS_ENTRY.email}-signin`}
+              name={CONSTANTS_ENTRY.email}
               label={t.labels.email}
               error={false}
               helperText={"Error en email"}
               autocomplete={false}
-              type="email"
-              onChange={null}
+              type={CONSTANTS_ENTRY.email}
+              onChange={(event) => null }
             />
           </div>
           <div className={classes.containerInput}>
             <Textfield
-              id="password-signin"
+              id={`${CONSTANTS_ENTRY.password}-signin`}
+              name={CONSTANTS_ENTRY.password}
               label={t.labels.password}
               error={false}
               helperText={"Error en password"}
               autocomplete={false}
-              type="password"
-              onChange={null}
+              type={CONSTANTS_ENTRY.password}
+              onChange={(event) => null }
             />
           </div>
           <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>

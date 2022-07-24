@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../../services/Store';
+import { RootState } from 'src/services/Store';
 
 /* Styles */
 import styles from './Footer.styles';

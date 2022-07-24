@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles';
-import { ThemeTypes } from '../../../Assets/Themes/Theme.types';
+import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 
 const styles = makeStyles({
   list: {
@@ -33,18 +33,6 @@ const styles = makeStyles({
   },
   divider: {
     border: (props: ThemeTypes) => `1px solid ${props.bgHover}`
-  },
-  switch: {
-    '&>div': {
-      display: 'flex',
-      alignItems: 'center',
-    }
-  },
-  darkMode: {
-    color: (props: ThemeTypes) => props.darkMode
-  },
-  lightMode: {
-    color: (props: ThemeTypes) => props.lightMode
   }
 });
 export default styles;

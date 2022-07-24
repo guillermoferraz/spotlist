@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../services/Store";
+import { RootState } from "src/services/Store";
 import { ButtonTypes } from "./Button.types";
 
 import Button from '@mui/material/Button';

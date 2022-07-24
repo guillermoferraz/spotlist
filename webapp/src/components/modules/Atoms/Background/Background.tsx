@@ -1,4 +1,4 @@
-import { RootState } from "../../../services/Store";
+import { RootState } from "src/services/Store";
 import { useSelector } from "react-redux";
 
 import styles from './Background.styles';

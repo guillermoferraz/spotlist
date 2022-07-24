@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles';
-import { ThemeTypes } from '../../Assets/Themes/Theme.types';
+import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 
 const styles = makeStyles({
   root: {
@@ -39,6 +39,12 @@ const styles = makeStyles({
     '&:hover':{
       cursor: 'pointer'
     }
+  },
+  darkMode: {
+    color: (props: ThemeTypes) => props.darkMode
+  },
+  lightMode: {
+    color: (props: ThemeTypes) => props.lightMode
   }
 });
 export default styles;

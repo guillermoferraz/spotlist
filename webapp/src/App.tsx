@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 /* Store */
@@ -6,12 +6,14 @@ import { Provider } from "react-redux";
 import store from './services/Store'
 
 /* UI Components */
-const Home = React.lazy(() => import ('./ui/Home').then(({ Home }) => ({ default: Home })));
-const Signin = React.lazy(() => import ('./ui/Signin').then(({ Signin }) => ({ default: Signin })));
-const Signup = React.lazy(() => import ('./ui/Signup').then(({ Signup }) => ({ default: Signup })));
-const Footer = React.lazy(() => import ('./ui/Footer').then(({ Footer }) => ({ default: Footer })));
-const Header = React.lazy(() => import ('./ui/Header').then(({ Header }) => ({ default: Header })));
-import { Background } from "./components/modules/Background/Background";
+const Home = lazy(() => import ('./ui/Home').then(({ Home }) => ({ default: Home })));
+const Signin = lazy(() => import ('./ui/Signin').then(({ Signin }) => ({ default: Signin })));
+const Signup = lazy(() => import ('./ui/Signup').then(({ Signup }) => ({ default: Signup })));
+const Footer = lazy(() => import ('src/components/modules/Organisms/Footer').then(({ Footer }) => ({ default: Footer })));
+const Header = lazy(() => import ('src/components/modules/Organisms/Header').then(({ Header }) => ({ default: Header })));
+
+/* Modules  */
+import { Background } from "./components/modules/Atoms/Background";
 
 /* Styles */
 import styles from "./App.module.css";

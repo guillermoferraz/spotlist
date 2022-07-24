@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import themeDark from "../Assets/Themes/Theme.dark";
-import themeLight from "../Assets/Themes/Theme.light";
-import es from '../Assets/Locales/es';
-import en from '../Assets/Locales/en';
+import themeDark from "src/Assets/Themes/Theme.dark";
+import themeLight from "src/Assets/Themes/Theme.light";
+import es from 'src/Assets/Locales/es';
+import en from 'src/Assets/Locales/en';
 
 
 const SettingsSlice = createSlice({

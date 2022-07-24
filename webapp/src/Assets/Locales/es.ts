@@ -1,4 +1,7 @@
+import globals from './globals';
+
 const es: { [key: string]: string | { [key: string]: string } | any } = {
+  ...globals,
   en: 'Ingles',
   es: 'Espanol',
   language: 'Idioma',
