@@ -19,13 +19,17 @@ export const Signin = () => {
   const { theme, t } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme)
 
+  const handleSubmit = () => {
+    console.log("submit data")
+  }
+
   return (
     <div className={classes.root}>
       <title>{`Spotlist | ${t.title.signin}`}</title>
       <section className={classes.content}>
         {mobile && <Logo />}
         <h1 className={classes.title}>{t.title.signin}</h1>
-        <div className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit} action="#">
           <div className={classes.containerInput}>
             <Textfield
               id="email-signin"
@@ -34,6 +38,7 @@ export const Signin = () => {
               helperText={"Error en email"}
               autocomplete={false}
               type="email"
+              onChange={null}
             />
           </div>
           <div className={classes.containerInput}>
@@ -44,17 +49,18 @@ export const Signin = () => {
               helperText={"Error en password"}
               autocomplete={false}
               type="password"
+              onChange={null}
             />
           </div>
           <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
           <div className={classes.containerBtn}>
             <ButtonModule 
               text={t.buttons.signin}
-              onClick={() => console.log('Clicked')}
+              submit
             />
           </div>
           <p className={classes.infoText}>{t.labels.notHaveAccount}&nbsp;<span onClick={() => navigate("/signup")}>{t.title.signup}</span></p>
-        </div>
+        </form>
       </section>
     </div>
   )

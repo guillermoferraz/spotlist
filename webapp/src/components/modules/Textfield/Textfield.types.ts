@@ -5,4 +5,5 @@ export interface TextfieldTypes {
     helperText: string | null;
     autocomplete: boolean | null;
     type: string | null;
+    onChange?: () => void | null;
 }

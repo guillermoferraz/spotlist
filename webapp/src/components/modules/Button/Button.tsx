@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 /* Styles */
 import styles from './Button.styles';
 
-export const ButtonModule = ({ text, onClick }: ButtonTypes) => {
+export const ButtonModule = ({ text, onClick, submit }: ButtonTypes) => {
   const { theme } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme);
 
@@ -16,6 +16,7 @@ export const ButtonModule = ({ text, onClick }: ButtonTypes) => {
       <Button
         variant="contained"
         onClick={() => onClick ? onClick() : null}
+        type={submit ? "submit" : "button"}
       >
         {text || "Button"}
       </Button>

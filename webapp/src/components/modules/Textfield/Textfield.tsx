@@ -7,7 +7,7 @@ import { TextfieldTypes } from './Textfield.types';
 import TextField from '@mui/material/TextField';
 import styles from './Textfield.styles';
 
-export const Textfield = ({label, id, error, helperText,  autocomplete, type}) => {
+export const Textfield = ({label, id, error, helperText,  autocomplete, type, onChange}) => {
     const { theme } = useSelector((state: RootState) => state.Settings);
     const addOnTheme = {...theme, error: error }
     const classes = styles(addOnTheme);
@@ -21,6 +21,7 @@ export const Textfield = ({label, id, error, helperText,  autocomplete, type}) =
                 variant="filled"
                 autoComplete={autocomplete ? 'on' : 'off'}
                 type={type ? type : 'text'}
+                onChange={onChange || null}
             />
         </div>
     )
