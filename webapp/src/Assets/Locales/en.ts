@@ -14,7 +14,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     confPassword: 'Confirm password',
     notHaveAccount: 'Do not you have an account yet ?',
     notRememberPassword: 'Do not you remember your password ?',
-    recover: "Recover"
+    recover: "Recover",
+    alreadyAccount: "Do you already have an account ?"
   },
   buttons: {
     signin: "Sign in",

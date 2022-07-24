@@ -10,9 +10,9 @@ import { ButtonModule } from '../../components/modules/Button';
 /* Styles */
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import styles from './Signin.styles';
+import styles from './Signup.styles';
 
-export const Signin = () => {
+export const Signup = () => {
   const navigate = useNavigate();
   const mediaQueryTheme = useTheme()
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
@@ -24,11 +24,11 @@ export const Signin = () => {
       <title>{`Spotlist | ${t.title.signin}`}</title>
       <section className={classes.content}>
         {mobile && <Logo />}
-        <h1 className={classes.title}>{t.title.signin}</h1>
+        <h1 className={classes.title}>{t.title.signup}</h1>
         <div className={classes.form}>
           <div className={classes.containerInput}>
             <Textfield
-              id="email-signin"
+              id="email-signup"
               label={t.labels.email}
               error={false}
               helperText={"Error en email"}
@@ -38,8 +38,28 @@ export const Signin = () => {
           </div>
           <div className={classes.containerInput}>
             <Textfield
-              id="password-signin"
+              id="confEmail"
+              label={t.labels.confEmail}
+              error={false}
+              helperText={"Error en email"}
+              autocomplete={false}
+              type="email"
+            />
+          </div>
+          <div className={classes.containerInput}>
+            <Textfield
+              id="password-signup"
               label={t.labels.password}
+              error={false}
+              helperText={"Error en password"}
+              autocomplete={false}
+              type="password"
+            />
+          </div>
+          <div className={classes.containerInput}>
+            <Textfield
+              id="confPassword"
+              label={t.labels.confPassword}
               error={false}
               helperText={"Error en password"}
               autocomplete={false}
@@ -49,11 +69,11 @@ export const Signin = () => {
           <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
           <div className={classes.containerBtn}>
             <ButtonModule 
-              text={t.buttons.signin}
+              text={t.buttons.signup}
               onClick={() => console.log('Clicked')}
             />
           </div>
-          <p className={classes.infoText}>{t.labels.notHaveAccount}&nbsp;<span onClick={() => navigate("/signup")}>{t.title.signup}</span></p>
+          <p className={classes.infoText}>{t.labels.alreadyAccount}&nbsp;<span onClick={() => navigate("/signin")}>{t.title.signin}</span></p>
         </div>
       </section>
     </div>

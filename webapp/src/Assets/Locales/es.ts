@@ -14,7 +14,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     confPassword: 'Confirmar contraseña',
     notHaveAccount: 'Aún no tienes una cuenta ?',
     notRememberPassword: 'No recuerdas tu contraseña ?',
-    recover: "Recuperar"
+    recover: "Recuperar",
+    alreadyAccount: "Ya tienes una cuenta ?",
   },
   buttons: {
     signin: "Iniciar sesión",
