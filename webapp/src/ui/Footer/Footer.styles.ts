@@ -5,6 +5,7 @@ const styles = makeStyles({
   root: {
     backgroundColor: (props: ThemeTypes) => props.bgSecondary,
     height: '5vh',
+    minWidth: (props: ThemeTypes) => props.bgSecondary,
     '&>section': {
       fontSize: '0.7rem',
       display: 'flex',

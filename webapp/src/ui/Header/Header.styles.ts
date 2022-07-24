@@ -7,6 +7,7 @@ const styles = makeStyles({
     display: 'flex',
     height: '5vh',
     alignItems: 'center',
+    minWidth: (props: ThemeTypes) => props.minWidth,
   },
   iconSetting: {
     color: (props: ThemeTypes) => props.colorPrimary,

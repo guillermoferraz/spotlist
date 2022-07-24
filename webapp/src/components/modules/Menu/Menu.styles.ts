@@ -6,25 +6,45 @@ const styles = makeStyles({
     '&>.MuiPaper-root': {
       backgroundColor: (props: ThemeTypes) => props.bgLight,
       color: (props: ThemeTypes) => props.colorPrimary,
-      '&>.MuiList-root':{
-        marginTop: 5,
-        padding: 0, 
-        '&>.MuiMenuItem-root':{
-        '&:hover':{
-          color: (props: ThemeTypes) => props.colorHover,
-          backgroundColor: (props: ThemeTypes) => props.bgHover,
+      '&>ul': {
+        '&>:nth-child(4)': {
+          '&:hover': {
+            color: (props: ThemeTypes) => props.colorHover,
+            backgroundColor: (props: ThemeTypes) => props.bgHover,
+          }
+        },
+        '&>:nth-child(5)': {
+          '&:hover': {
+            color: (props: ThemeTypes) => props.colorHover,
+            backgroundColor: (props: ThemeTypes) => props.bgHover,
+          }
         }
-      }
-    },
-  }
+      },
+      '&>.MuiList-root': {
+        marginTop: 5,
+        padding: 0,
+      },
+    }
   },
-  label:{
+  label: {
     fontSize: '0.8rem',
     margin: '0px 0px 0px 5px',
     color: (props: ThemeTypes) => props.colorHover
   },
-  divider:{
+  divider: {
     border: (props: ThemeTypes) => `1px solid ${props.bgHover}`
+  },
+  switch: {
+    '&>div': {
+      display: 'flex',
+      alignItems: 'center',
+    }
+  },
+  darkMode: {
+    color: (props: ThemeTypes) => props.darkMode
+  },
+  lightMode: {
+    color: (props: ThemeTypes) => props.lightMode
   }
 });
 export default styles;

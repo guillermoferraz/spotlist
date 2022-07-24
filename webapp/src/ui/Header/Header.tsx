@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
 /* Store */
+import { useNavigate } from 'react-router-dom';
+/* Store */
 import { RootState, useAppDispatch } from '../../services/Store'
 import SettingsSlice from '../../application/Settings'
 
@@ -13,6 +15,7 @@ import styles from './Header.styles'
 
 export const Header = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const { dark, theme, t } = useSelector((state: RootState) => state.Settings);
     const classes = styles(theme)
     const { setTheme, setLocale } = SettingsSlice.actions;
@@ -20,12 +23,6 @@ export const Header = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const handleChangeTheme = (dark) => {
-        dispatch(setTheme(!dark))
-    }
-    const handleChangeLng = (lng) => {
-        dispatch(setLocale(lng))
-    }
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
       };
@@ -35,7 +32,7 @@ export const Header = () => {
             {/* <button onClick={() => handleChangeTheme(dark)}>{dark ? 'Dark' : 'Light'}</button>
                 <button onClick={() => handleChangeLng('es')}>{t.es}</button>
                 <button onClick={() => handleChangeLng('en')}>{t.en}</button> */}
-            <section className={classes.logo}>
+            <section className={classes.logo} onClick={() => navigate('/') }>
                 <img src="img/logo.png" alt="Spotlist logo"/>
             </section>
             <h1 className={classes.title}>Spotlist</h1>

@@ -2,6 +2,7 @@ export type ThemeGlobalTypes = {
     minHeight: string;
     padding: number;
     margin: number;
+    minWidth: number;
 };
 
 export interface ThemeTypes extends ThemeGlobalTypes {
@@ -12,4 +13,6 @@ export interface ThemeTypes extends ThemeGlobalTypes {
     colorHover: string;
     colorPalletPrimary: string;
     bgHover: string;
+    darkMode: string;
+    lightMode: string;
 };

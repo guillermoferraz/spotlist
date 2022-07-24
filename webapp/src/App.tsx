@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 /* Store */
@@ -5,27 +6,30 @@ import { Provider } from "react-redux";
 import store from './services/Store'
 
 /* UI Components */
-import { Home } from "./ui/Home";
-import { Signin } from "./ui/Signin";
-import { Footer } from "./ui/Footer";
-import { Header } from './ui/Header';
+const Home = React.lazy(() => import ('./ui/Home').then(({ Home }) => ({ default: Home })));
+const Signin = React.lazy(() => import ('./ui/Signin').then(({ Signin }) => ({ default: Signin })));
+const Footer = React.lazy(() => import ('./ui/Footer').then(({ Footer }) => ({ default: Footer })));
+const Header = React.lazy(() => import ('./ui/Header').then(({ Header }) => ({ default: Header })));
 
 /* Styles */
 import styles from "./App.module.css";
 
-function App() {
+const App = () => {
+
   return (
     <Router>
       <Provider store={store}>
+        <Suspense fallback={<div>Loading</div>}>
         <Header />
         <div className={styles.App}>
           <Routes>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="*" element={<div><h1>Lo siento no hay resultado 404</h1></div>} />
           </Routes>
         </div>
         <Footer />
+        </Suspense>
       </Provider>
     </Router>
   )

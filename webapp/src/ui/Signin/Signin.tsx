@@ -14,7 +14,7 @@ export const Signin = () => {
 
   return (
     <div className={classes.root}>
-      Sign in page
+      <title>Spotlist | Signin</title>
     </div>
   )
 }

@@ -9,6 +9,9 @@ const themeLight: ThemeTypes = {
     colorPrimary: 'black',
     colorHover: '#A6AEBF',
     colorPalletPrimary: '#418B35',
-    bgHover: '#276C47'
+    bgHover: '#276C47',
+    darkMode: '#D8D8D8',
+    lightMode: '#E3D22D'
+    
 };
 export default themeLight;

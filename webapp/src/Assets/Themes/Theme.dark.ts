@@ -8,6 +8,8 @@ const themeDark: ThemeTypes = {
     colorPrimary: '#EFF1F5',
     colorHover: '#A6AEBF',
     colorPalletPrimary: '#418B35',
-    bgHover: '#214E36'
+    bgHover: '#214E36',
+    darkMode: '#D8D8D8',
+    lightMode: '#E3D22D'
 };
 export default themeDark;
