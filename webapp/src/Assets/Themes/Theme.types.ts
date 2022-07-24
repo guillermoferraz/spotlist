@@ -1,7 +1,7 @@
 export type ThemeGlobalTypes = {
     minHeight: string;
-    padding: number;
-    margin: number;
+    padding?: number | string;
+    margin?: number | string;
     minWidth: number;
 };
 
@@ -15,5 +15,7 @@ export interface ThemeTypes extends ThemeGlobalTypes {
     bgHover: string;
     darkMode: string;
     lightMode: string;
-    error?: boolean
+    error?: boolean;
+    width?: number | string;
+    inputMargin?: number | string;
 };

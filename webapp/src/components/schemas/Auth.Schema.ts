@@ -5,10 +5,6 @@ export interface SigninTypes {
 export interface SignupTypes extends SigninTypes {
     confEmail: string;
     confPassword: string;
-    validEmail: boolean;
-    validConfEmail: boolean;
-    validPassword: boolean;
-    validConfPassword: boolean;
 };
 
 type ConstansTypes  = {

@@ -19,9 +19,6 @@ const styles = makeStyles({
     padding: 20,
     width: '17rem'
   },
-  containerInput: {
-    margin: '15px 0px 15px 0px'
-  },
   infoText:{
     color: (props: ThemeTypes) => props.colorPrimary,
     fontSize: '0.7rem',
