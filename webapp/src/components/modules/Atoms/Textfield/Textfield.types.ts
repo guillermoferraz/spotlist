@@ -7,4 +7,5 @@ export interface TextfieldTypes {
     type: string | null;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     name: string;
+    icon?: JSX.Element|JSX.Element[]
 }

@@ -18,6 +18,7 @@ export interface EntryTypes {
   autocomplete: boolean;
   type: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  iconEntry?: JSX.Element|JSX.Element[]
 };
 export interface ErrorRegisterTypes {
   email: boolean;

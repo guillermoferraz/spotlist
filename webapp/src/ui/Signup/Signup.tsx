@@ -13,6 +13,11 @@ import { Form } from "src/components/modules/Organisms/Form";
 /* Styles */
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import KeyOutlinedIcon from '@mui/icons-material/KeyOutlined';
 import styles from './Signup.styles';
 
 /* Cofigs & Types */
@@ -42,6 +47,10 @@ export const Signup = () => {
     helperPassword: '',
     confPassword: false,
     helperConfPassword: ''
+  });
+  const [showPass, setShowPass] = useState<{ [key: string]: boolean }>({
+    password: false,
+    confPassword: false
   });
 
   const handleSubmit = () => {
@@ -87,6 +96,11 @@ export const Signup = () => {
     }
   }, [registerData])
 
+  const handleShowPass = (entry) => {
+    if (entry === CONSTANTS_ENTRY.password) setShowPass({ ...showPass, password: !showPass.password })
+    if (entry === CONSTANTS_ENTRY.confPassword) setShowPass({ ...showPass, confPassword: !showPass.confPassword })
+  }
+
   const listEntries: EntryTypes[] = [
     {
       id: `${CONSTANTS_ENTRY.email}-signup`,
@@ -96,7 +110,8 @@ export const Signup = () => {
       helperText: errors.helperEmail,
       autocomplete: false,
       type: CONSTANTS_ENTRY.email,
-      onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.email })
+      onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.email }),
+      iconEntry: <EmailOutlinedIcon style={{ color: theme.colorPalletPrimary }} />
     },
     {
       id: `${CONSTANTS_ENTRY.confEmail}-signup`,
@@ -106,7 +121,8 @@ export const Signup = () => {
       helperText: errors.helperConfEmail,
       autocomplete: false,
       type: CONSTANTS_ENTRY.email,
-      onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confEmail })
+      onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confEmail }),
+      iconEntry: <EmailOutlinedIcon style={{ color: theme.colorPalletPrimary }} />
     },
     {
       id: `${CONSTANTS_ENTRY.password}-signup`,
@@ -115,8 +131,15 @@ export const Signup = () => {
       error: errors.password,
       helperText: errors.helperPassword,
       autocomplete: false,
-      type: CONSTANTS_ENTRY.password,
+      type: !showPass.password ? CONSTANTS_ENTRY.password : 'text',
       onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.password }),
+      iconEntry:
+        <>
+          <KeyOutlinedIcon style={{ color: theme.colorPalletPrimary, marginRight: 10 }} />
+          {!showPass.password ?
+            <VisibilityOutlinedIcon style={{ color: theme.colorPalletPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.password)} />
+            : <VisibilityOffOutlinedIcon style={{ color: theme.colorPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.password)} />}
+        </>
     },
     {
       id: `${CONSTANTS_ENTRY.confPassword}-signup`,
@@ -125,14 +148,21 @@ export const Signup = () => {
       error: errors.confPassword,
       helperText: errors.helperConfPassword,
       autocomplete: false,
-      type: CONSTANTS_ENTRY.password,
+      type: !showPass.confPassword ? CONSTANTS_ENTRY.password : 'text',
       onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confPassword }),
+      iconEntry:
+        <>
+          <KeyOutlinedIcon style={{ color: theme.colorPalletPrimary, marginRight: 10}} />
+          {!showPass.confPassword ?
+            <VisibilityOutlinedIcon style={{ color: theme.colorPalletPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.confPassword)} />
+            : <VisibilityOffOutlinedIcon style={{ color: theme.colorPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.confPassword)} />}
+        </>
     }
   ]
 
   return (
     <div className={classes.root}>
-      <title>{`Spotlist | ${t.title.signup}`}</title>
+      <title>{`${t.appName} | ${t.title.signup}`}</title>
       <section className={classes.content}>
         {mobile && <Logo />}
         <h1 className={classes.title}>{t.title.signup}</h1>

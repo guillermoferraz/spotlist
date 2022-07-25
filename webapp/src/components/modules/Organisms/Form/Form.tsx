@@ -35,6 +35,7 @@ export const Form = ({ styleProps, entries, submitElement }: CombineTypes) => {
             helperText={entry.helperText}
             autocomplete={entry.autocomplete}
             onChange={entry.onChange}
+            icon={entry?.iconEntry}
           />
         </div>
       ))}
