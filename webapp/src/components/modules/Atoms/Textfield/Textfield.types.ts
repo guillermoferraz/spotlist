@@ -6,5 +6,5 @@ export interface TextfieldTypes {
     autocomplete: boolean | null;
     type: string | null;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    name: string
+    name: string;
 }

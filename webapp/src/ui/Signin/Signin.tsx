@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+/* Store */
 import { RootState } from "src/services/Store";
 
 /* Modules */
 import { Logo } from 'src/components/modules/Atoms/Logo';
-import { Textfield } from "src/components/modules/Atoms/Textfield";
 import { ButtonModule } from 'src/components/modules/Atoms/Button';
 import { Form } from 'src/components/modules/Organisms/Form';
 
@@ -28,10 +29,11 @@ export const Signin = () => {
     email: '',
     password: '',
   });
+
   console.log(loginData)
 
   const handleSubmit = () => {
-    console.log("submit data Login")
+    console.log("submit data Login:")
   }
 
   const handleDataCollected = useCallback((collectedData) => {
@@ -72,7 +74,6 @@ export const Signin = () => {
         <h1 className={classes.title}>{t.title.signin}</h1>
         <Form
           styleProps={{ width: 0 }}
-          onSubmit={handleSubmit}
           entries={listEntries}
           submitElement={
             <>
@@ -80,7 +81,8 @@ export const Signin = () => {
               <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
                 <ButtonModule
                   text={t.buttons.signin}
-                  submit
+                  submit={false}
+                  onClick={() => handleSubmit()}
                 />
                 <p className={classes.infoText}>{t.labels.notHaveAccount}&nbsp;<span onClick={() => navigate("/signup")}>{t.title.signup}</span></p>
               </div>

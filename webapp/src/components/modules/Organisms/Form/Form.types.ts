@@ -6,10 +6,8 @@ interface StyleTypes {
 };
 
 export interface FormTypes {
-  onSubmit?: () => void;
-  action?: string;
   styleProps?: StyleTypes;
-  submitElement?: JSX.Element | JSX.Element[]; 
+  submitElement?: JSX.Element | JSX.Element[];
 };
 export interface EntryTypes {
   id: string;
@@ -21,3 +19,13 @@ export interface EntryTypes {
   type: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
+export interface ErrorRegisterTypes {
+  email: boolean;
+  helperEmail: string;
+  confEmail: boolean;
+  helperConfEmail: string;
+  password: boolean;
+  helperPassword: string;
+  confPassword: boolean;
+  helperConfPassword: string;
+}

@@ -9,14 +9,14 @@ import { FormTypes, EntryTypes } from './Form.types';
 /* Styles */
 import styles from './Form.styles';
 
-type CombineTypes = FormTypes & { entries: EntryTypes[] }
+type CombineTypes = FormTypes & { entries: EntryTypes[] };
 
-export const Form = ({ styleProps, action, onSubmit, entries, submitElement }: CombineTypes) => {
+export const Form = ({ styleProps, entries, submitElement }: CombineTypes) => {
   const { theme } = useSelector((state: RootState) => state.Settings);
   const setStyles = {
-    ...theme, 
-    margin: styleProps?.margin, 
-    width: styleProps?.width, 
+    ...theme,
+    margin: styleProps?.margin,
+    width: styleProps?.width,
     padding: styleProps?.padding,
     inputMargin: styleProps?.inputMargin
   };
@@ -24,23 +24,21 @@ export const Form = ({ styleProps, action, onSubmit, entries, submitElement }: C
 
   return (
     <div className={classes.root}>
-      <form onSubmit={onSubmit} action={action || "#"}>
-        {entries && entries.length > 0 && entries.map((entry, indx) => (
-          <div className={classes.containerInput} key={indx}>
-            <Textfield
-              id={entry.id}
-              name={entry.name}
-              label={entry.label}
-              type={entry.type}
-              error={entry.error}
-              helperText={entry.helperText}
-              autocomplete={entry.autocomplete}
-              onChange={entry.onChange}
-            />
-          </div>
-        ))}
-        {submitElement || null}
-      </form>
-    </div>
+      {entries && entries.length > 0 && entries.map((entry, indx) => (
+        <div className={classes.containerInput} key={indx}>
+          <Textfield
+            id={entry.id}
+            name={entry.name}
+            label={entry.label}
+            type={entry.type}
+            error={entry.error}
+            helperText={entry.helperText}
+            autocomplete={entry.autocomplete}
+            onChange={entry.onChange}
+          />
+        </div>
+      ))}
+      {submitElement || null}
+    </div >
   )
 }

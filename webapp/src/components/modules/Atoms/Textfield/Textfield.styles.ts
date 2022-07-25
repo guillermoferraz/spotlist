@@ -17,10 +17,14 @@ const styles = makeStyles({
         backgroundColor: (props: ThemeTypes) => props.bgLight,
         '&::after': {
           borderBottom: (props: ThemeTypes) => props?.error ? '2px solid red' : '2px solid green' ,
+          
         },
         '&::before': {
           borderBottom: '2px solid green',
         }
+      },
+      '&>.MuiFormHelperText-root':{
+        fontSize: '0.65rem'
       }
     }
   }
