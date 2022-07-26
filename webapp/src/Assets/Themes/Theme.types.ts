@@ -18,4 +18,5 @@ export interface ThemeTypes extends ThemeGlobalTypes {
     error?: boolean;
     width?: number | string;
     inputMargin?: number | string;
+    backgroundLoding: string;
 };

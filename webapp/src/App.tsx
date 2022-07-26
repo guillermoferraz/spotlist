@@ -1,16 +1,17 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 /* Store */
 import { Provider } from "react-redux";
 import store from './services/Store'
 
 /* UI Components */
-const Home = lazy(() => import ('./ui/Home').then(({ Home }) => ({ default: Home })));
-const Signin = lazy(() => import ('./ui/Signin').then(({ Signin }) => ({ default: Signin })));
-const Signup = lazy(() => import ('./ui/Signup').then(({ Signup }) => ({ default: Signup })));
-const Footer = lazy(() => import ('src/components/modules/Organisms/Footer').then(({ Footer }) => ({ default: Footer })));
-const Header = lazy(() => import ('src/components/modules/Organisms/Header').then(({ Header }) => ({ default: Header })));
+const Home = lazy(() => import('./ui/Home').then(({ Home }) => ({ default: Home })));
+const Signin = lazy(() => import('./ui/Signin').then(({ Signin }) => ({ default: Signin })));
+const Signup = lazy(() => import('./ui/Signup').then(({ Signup }) => ({ default: Signup })));
+import { Footer } from "./components/modules/Organisms/Footer";
+import { Header } from "./components/modules/Organisms/Header";
+import { Loading } from "./components/modules/Layouts/Loading";
 
 /* Modules  */
 import { Background } from "./components/modules/Atoms/Background";
@@ -19,12 +20,11 @@ import { Background } from "./components/modules/Atoms/Background";
 import styles from "./App.module.css";
 
 const App = () => {
-
   return (
     <Router>
-      <Provider store={store}>
-        <Background/>
-        <Suspense fallback={<div>Loading</div>}>
+    <Provider store={store}>
+      <Background />
+      <Suspense fallback={<Loading />}>
         <Header />
         <div className={styles.App}>
           <Routes>
@@ -35,8 +35,8 @@ const App = () => {
           </Routes>
         </div>
         <Footer />
-        </Suspense>
-      </Provider>
+      </Suspense>
+    </Provider>
     </Router>
   )
 }

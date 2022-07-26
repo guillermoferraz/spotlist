@@ -1,17 +1,6 @@
-#!/usr/bin/env node
-import { loadEndpoints } from "./controllers/api";
-
-const express = require('express')
-const bodyParser = require('body-parser');
-const cors = require('cors')
+import express from 'express';
 
 const app = express();
-const port = process.env.PORT || 8000;
-
-app.use(bodyParser.json());
-app.use(cors())
-app.set('port', port)
-
-loadEndpoints(app)
+require('./loaders').default({ expressApp: app })
 
 export default app;

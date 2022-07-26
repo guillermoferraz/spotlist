@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 /* Store */
-import { RootState } from "src/services/Store";
+import { RootState, useAppDispatch } from "src/services/Store";
+import { Signin as Login } from 'src/application/Auth';
+
 
 /* Modules */
 import { Logo } from 'src/components/modules/Atoms/Logo';
 import { ButtonModule } from 'src/components/modules/Atoms/Button';
 import { Form } from 'src/components/modules/Organisms/Form';
+import { Loading } from 'src/components/modules/Layouts/Loading';
 
 import { SigninTypes, CONSTANTS_ENTRY } from "src/components/schemas/Auth.Schema";
 import { EntryTypes, ErrorRegisterTypes } from "src/components/modules/Organisms/Form/Form.types";
@@ -27,8 +30,10 @@ import styles from './Signin.styles';
 export const Signin = () => {
   const navigate = useNavigate();
   const mediaQueryTheme = useTheme()
+  const dispatch = useAppDispatch();
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
   const { theme, t } = useSelector((state: RootState) => state.Settings);
+  const { signinResponse, loading } = useSelector((state: RootState) => state.Auth)
   const classes = styles(theme)
 
   const [loginData, setLoginData] = useState<SigninTypes>({
@@ -50,12 +55,14 @@ export const Signin = () => {
     if (entry === CONSTANTS_ENTRY.password) setShowPass({ password: !showPass.password })
   }
 
+  console.log('Signin response:', signinResponse)
+  console.log('LOADING:', loading)
 
   const handleSubmit = () => {
     if (
       !errors.email && loginData.email !== '' &&
       !errors.password && loginData.password !== ''
-    ) console.log('submit data Register:')
+    ) dispatch(Login(loginData))
     else {
       const emptyEntries = Object.entries(loginData).filter(v => v[1] === '')
       emptyEntries.length > 0 && emptyEntries.reverse().map(entry => {
@@ -116,6 +123,7 @@ export const Signin = () => {
 
   return (
     <div className={classes.root}>
+      {loading && <Loading/>}
       <title>{`${t.appName} | ${t.title.signin}`}</title>
       <section className={classes.content}>
         {mobile && <Logo />}

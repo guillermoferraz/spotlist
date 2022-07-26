@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "description": "Rviewer - Fullstack skeleton with Express & React",
   "author": "Rviewer Team (help@rviewer.io)",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module"
 }

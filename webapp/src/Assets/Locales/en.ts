@@ -30,6 +30,7 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     confEmail: 'Email and confirmation do not match',
     password: 'The password must have at least 8 characters and must contain at least one uppercase, one lowercase and one special character (symbol)',
     confPassword: 'Password and confirmation do not match'
-  }
+  },
+  wait: 'Please wait ...'
 };
 export default en;

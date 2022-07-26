@@ -11,7 +11,8 @@ const themeLight: ThemeTypes = {
     colorPalletPrimary: '#418B35',
     bgHover: '#276C47',
     darkMode: '#D8D8D8',
-    lightMode: '#E3D22D'
+    lightMode: '#E3D22D',
+    backgroundLoding: "rgba(34, 38, 57, 0.91)"
     
 };
 export default themeLight;
