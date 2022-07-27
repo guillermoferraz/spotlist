@@ -58,7 +58,7 @@ Remember that **there is no countdown**, so take your time and implement a solut
 * You can verify the creation of the containers with the command:
  `docker ps`
 * The creation of the docker network:
- `dcoker network ls`
+ `docker network ls`
  * your new network will be
 ```
 | NEWWORK ID  | NAME         | DRIVER   |  SCOPE  |
