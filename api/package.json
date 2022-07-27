@@ -6,11 +6,15 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --respawn src/server.ts",
-    "test": "jest"
+    "test": "jest",
+    "exec:db": "docker exec -it db-spotlist bash -c mongosh"
   },
   "dependencies": {
+    "@typegoose/typegoose": "^9.10.1",
     "cors": "^2.8.5",
-    "express": "^4.18.1"
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.0"
   },
   "devDependencies": {
     "@types/jest": "^27.5.1",
