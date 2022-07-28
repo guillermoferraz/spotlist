@@ -44,7 +44,6 @@ you expected!
 
 Remember that **there is no countdown**, so take your time and implement a solution that you are proud!
 
-
 ### 
 #### Project creation
 > Run the following commands in the main root of the project
