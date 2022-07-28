@@ -49,8 +49,6 @@ export const Signin = () => {
   });
   const [showPass, setShowPass] = useState<{[key:string]: boolean}>({ password: false })
 
-  console.log(loginData)
-
   const handleShowPass = (entry) => {
     if (entry === CONSTANTS_ENTRY.password) setShowPass({ password: !showPass.password })
   }

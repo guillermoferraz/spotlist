@@ -1,15 +1,17 @@
-import axios from 'axios';
-import env from '../application/env';
-import { SigninTypes } from '../components/schemas/Auth.Schema';
+import axios from "axios";
+import env from "../application/env";
+import { SigninTypes } from "../components/schemas/Auth.Schema";
+
 const AuthService = {
-    Sigin:(data: SigninTypes) => {
-        console.table(data)
-        return data
-    },
-    Signup: async (formData: SigninTypes) => {
-        const res: any = await axios.post(`${env.apiUri}/auth/signup`, formData);
-        const data = res?.status === 200 ? res?.data : res;
-        return data;
-    }
-}
+  Sigin: async (data: SigninTypes) => {
+    const res = await axios.post(`${env.apiUri}/auth/signin`, data);
+    const response = res.data;
+    return response;
+  },
+  Signup: async (formData: SigninTypes) => {
+    const response =  await axios.post(`${env.apiUri}/auth/signup`, formData);
+    return response;
+  },
+};
 export default AuthService;
+

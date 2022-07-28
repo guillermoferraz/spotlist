@@ -1,5 +1,5 @@
 import ERRORS from '../constants/errors/errors';
-
+import hashPassword from '../helpers/hashPassword';
 /* Models */
 import UserModel  from '../db/models/user';
 export default class AuthServices {
@@ -9,12 +9,13 @@ export default class AuthServices {
   ) {
     this.userModel = userModel
   }
-  public async signup(formData): Promise<any> {
+  public async signup( formData ): Promise<any> {
     try {
       const { email, password } = formData;
       const lowerCaseEmail = email.toLowerCase();
+      const encryptedPassword = await hashPassword( password );
 
-      const user = new UserModel({email: lowerCaseEmail, password})
+      const user = new UserModel({ email: lowerCaseEmail, password: encryptedPassword })
       const existUser = await this.userModel.findOne({ email: lowerCaseEmail })
       
       if (existUser) {
