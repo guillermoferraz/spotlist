@@ -13,11 +13,10 @@ export default class AuthServices {
     try {
       const { email, password } = formData;
       const lowerCaseEmail = email.toLowerCase();
-      console.log(lowerCaseEmail)
+
       const user = new UserModel({email: lowerCaseEmail, password})
       const existUser = await this.userModel.findOne({ email: lowerCaseEmail })
-      console.log({ user: user })
-      console.log('EXIST USER:', existUser)
+      
       if (existUser) {
         console.log('[❌]*** USER EXIST IN DATABASE ***', existUser)
         return ERRORS.USER_ALREADY_EXISTS
