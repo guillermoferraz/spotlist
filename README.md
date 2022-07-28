@@ -1,45 +1,35 @@
-# Spotlist Challenge
+#### Project creation
+> Run the following commands in the main root of the project
+ * `make up`
+      This command will create the database, api and webapp containers. It will also close a network in docker for communication.
+      You can see more details about it in the `Makefile` file and `docker-compose.yml`
+    
+    ###### In case of any type of error execute:
+    1. `make down`
+    2. `make up`
+    
+* You can verify the creation of the containers with the command:
+ `docker ps`
+* The creation of the docker network:
+ `dcoker network ls`
+ * your new network will be
+```
+| NEWWORK ID  | NAME         | DRIVER   |  SCOPE  |
+|-------------|--------------|----------|---------|
+| YOUR ID     | spotlist_net | bridge   | local   | 
+```
+##### With the `docker-compose up` command you can see the followers at runtime
 
-Spotlist is a new indie music company that aims to provide better relationships with small artists.
-
-Their product is _Spotlist_, a platform in which people can generate and share playlists for their favourite artists providing them with visibility.
-
-## Current Status
-
-The CEO of _Spotlist_ hired you to develop the initial version of his product. Its worth mentioning that she does not have any technical background.
-
-However, she has a clear vision on how the product should behave, so she provided a list of functional requirements.
-
-### Requirements
-* Each user will have a **unique** id, and he will authenticate using a **non-empty name** and a **password**.
-* Each user will be able to save a list of songs. Each song will have an **artist** and **title**, and each list will be defined by a **unique** id and a name.
-* The system have to allow the following actions
-    * Create a new list with a given name (auto-generate the **unique** id)
-    * Get the users lists
-    * Get an individual list for the user
-    * Add songs to a given list (based on the generated id)
-    * All endpoints have to be secured with Basic Auth (using name & password) 
-* You should ensure that the password is strong enough
-
-You can find the OpenAPI documentation for the expected API on the [file](./api.spec.yaml).
-
-## What are we looking for?
-
-* **A well-designed solution and architecture** Avoid duplication, extract re-usable code
-where makes sense. We want to see that you can create an easy-to-maintain codebase.
-* **Storage** We do not need a full fledged database rollout, its ok to save your data on memory for now. _However_ we are looking for an architecture that allows us to add a database as easy as possible. For a start, you can find a users database in json format on the _doc_ folder.
-* **Testing** Try to create tests covering the main functionalities of your code. Feel free to create both unit tests and functional tests.
-* **Documentation** The CEO has a non-tech background so try to explain your decisions, 
-as well as any other technical requirement (how to run the API, external dependencies, etc ...)
-
----
-
-## How to submit your solution
-
-* Push your code to the `devel` branch - we encourage you to commit regularly to show your thinking process was.
-* **Create a new Pull Request** to `main` branch & **merge it**.
-
-Once merged you **won't be able to change or add** anything to your solution, so double-check that everything is as
-you expected!
-
-Remember that **there is no countdown**, so take your time and implement a solution that you are proud!
+## mongosh terminal (database)
+* You can run the mongodb terminal by running the following command inside the `/api` folder
+ ```
+ yarn run exec:db
+```
+### To see the api logs you can run:
+```
+docker logs --follow rv-deliver-app-fullstack-api
+```
+### To terminate the servers run:
+```
+docker-compose down
+```%                      
