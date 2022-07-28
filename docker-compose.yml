@@ -14,7 +14,7 @@ services:
     volumes:
       - "${PWD}/api:/opt/app"
     entrypoint: ["yarn", "start"]
-
+  
   app:
     <<: *node
     container_name: rv-deliver-app-fullstack-webapp
@@ -23,3 +23,10 @@ services:
     volumes:
       - "${PWD}/webapp:/opt/app"
     entrypoint: [ "yarn", "start" ]
+  
+  db-spotlist:
+    container_name: db-spotlist
+    image: mongo:latest
+    ports:
+     - "27017:27017"
+  

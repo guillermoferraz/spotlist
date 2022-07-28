@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 /* Store */
-import { RootState } from "../../services/Store";
+import { RootState, useAppDispatch } from "../../services/Store";
+import { Signup as sendFormData } from "src/application/Auth";
 
 /* Modules */
 import { Logo } from 'src/components/modules/Atoms/Logo';
@@ -26,10 +27,12 @@ import { EntryTypes, ErrorRegisterTypes } from "src/components/modules/Organisms
 import { isValidEmail, isValidPassword } from "src/application/Validators";
 
 export const Signup = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mediaQueryTheme = useTheme();
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'));
   const { theme, t } = useSelector((state: RootState) => state.Settings);
+  const { signupResponse } = useSelector((state: RootState) => state.Auth);
   const classes = styles(theme);
 
   const [registerData, setRegisterData] = useState<SignupTypes>({
@@ -53,13 +56,18 @@ export const Signup = () => {
     confPassword: false
   });
 
+  signupResponse && console.log("response:", signupResponse)
+
   const handleSubmit = () => {
     if (
       !errors.email && registerData.email !== '' &&
       !errors.confEmail && registerData.confEmail !== '' &&
       !errors.password && registerData.password !== '' &&
       !errors.confPassword && registerData.confPassword !== ''
-    ) console.log('submit data Register:')
+    ) dispatch(sendFormData({
+      email: registerData.email,
+      password: registerData.password
+    }))
     else {
       const emptyEntries = Object.entries(registerData).filter(v => v[1] === '')
       emptyEntries.length > 0 && emptyEntries.reverse().map(entry => {
@@ -152,7 +160,7 @@ export const Signup = () => {
       onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confPassword }),
       iconEntry:
         <>
-          <KeyOutlinedIcon style={{ color: theme.colorPalletPrimary, marginRight: 10}} />
+          <KeyOutlinedIcon style={{ color: theme.colorPalletPrimary, marginRight: 10 }} />
           {!showPass.confPassword ?
             <VisibilityOutlinedIcon style={{ color: theme.colorPalletPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.confPassword)} />
             : <VisibilityOffOutlinedIcon style={{ color: theme.colorPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.confPassword)} />}

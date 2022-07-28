@@ -8,9 +8,9 @@ const AuthControllers = (app: Router) => {
     app.use('/auth', router);
     const AuthService = new AuthServices();
 
-    router.post('/signin', async (req: Request, res: Response, next: NextFunction) => {
+    router.post('/signup', async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const response = await AuthService.signin(req.body);
+            const response = await AuthService.signup(req.body);
             if(response.status === 200) res.json(response)
             else res.status(response.status).json(response)
         } catch (err) {

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "module": "commonjs",
     "esModuleInterop": true,
     "allowJs": true,
@@ -10,7 +11,9 @@
     "sourceMap": true,
     "outDir": "dist",
     "resolveJsonModule": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src"
