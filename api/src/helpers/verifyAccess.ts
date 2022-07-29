@@ -6,12 +6,15 @@ export const verifyAccess = (token: any) => {
   if (token) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     const splitToken = token.split(' ')[1];
     return jwt.verify(splitToken, env?.jwtSecret, (err, id) => {
       if (err) {
         return { access: false, id: '' }
       } else {
 =======
+=======
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
     console.log('\nTOKEN ON VERIFY:', token,'\n')
@@ -25,6 +28,9 @@ export const verifyAccess = (token: any) => {
       } else {
         console.log('RETORO 2')
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
+=======
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
@@ -35,6 +41,10 @@ export const verifyAccess = (token: any) => {
   } else {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    console.log('RETORO 3')
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
     console.log('RETORO 3')
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)

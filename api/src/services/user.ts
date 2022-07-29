@@ -13,6 +13,7 @@ export default class UserServices {
         console.log('USER ON SERVICE:', user)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         const userData = await this.userModel.findOne({ id: user.id })
         console.log('USER DATA:', userData)
         if(userData){
@@ -22,11 +23,16 @@ export default class UserServices {
 =======
 =======
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
+=======
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
         console.log(new Date())
         const expiryDate = new Date(user.exp * 1000);
         console.log("fecha de expiracion:", expiryDate)
         return "user email test 123"
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
+=======
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)

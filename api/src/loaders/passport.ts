@@ -42,6 +42,10 @@ export default ({ app }: { app: express.Application }) => {
   });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
 
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
@@ -50,8 +54,14 @@ export default ({ app }: { app: express.Application }) => {
    */
   const generateAccessToken = (id) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     return jwt.sign({id: id } , env?.jwtSecret, { expiresIn: '24h' });
   }    
+=======
+    return jwt.sign({id: id } , env?.jwtSecret, { expiresIn: '3m' });
+  }
+    
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
     return jwt.sign({id: id } , env?.jwtSecret, { expiresIn: '3m' });
   }
@@ -70,6 +80,11 @@ export default ({ app }: { app: express.Application }) => {
         if(!user && !matchPassword) return done(null, "User not found");
         if(user && matchPassword) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+          console.log('***  user mathed **** ')
+          console.log('jwt secret:', env?.jwtSecret)
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
           console.log('***  user mathed **** ')
           console.log('jwt secret:', env?.jwtSecret)
@@ -85,8 +100,11 @@ export default ({ app }: { app: express.Application }) => {
     })
   )
 <<<<<<< HEAD
+<<<<<<< HEAD
 };
 =======
+=======
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
   
 
 }

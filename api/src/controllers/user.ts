@@ -14,6 +14,10 @@ const UserControllers = (app: Router) => {
     const authorization = verifyAccess(req.headers['authorization']);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    console.log('AUTHORIZATION ON ROUTE:', authorization)
+>>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
 =======
     console.log('AUTHORIZATION ON ROUTE:', authorization)
 >>>>>>> bb7e218 (user registration and alerts, login and alerts + passport and jwt configured and functional.)
