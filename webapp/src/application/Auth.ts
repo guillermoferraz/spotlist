@@ -14,8 +14,8 @@ export const Signin = createAsyncThunk(
       }
     }
   }
-
 );
+
 export const Signup = createAsyncThunk(
   "auth/signup",
   async (data: SigninTypes) => {
@@ -28,14 +28,37 @@ export const Signup = createAsyncThunk(
   }
 );
 
+export const VerifyToken = createAsyncThunk("auth/verify", async (token: string) => {
+  try {
+    const response = await AuthService.verifyToken(token);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
+})
+
 const AuthSlice = createSlice({
   name: "Auth",
   initialState: {
-    signinResponse: { message: '', detail: '' },
+    signinResponse: { message: '', detail: '', token: '' },
     signupResponse: { message: '' },
     loading: false,
+    verifyResponse: { message: undefined }
   },
-  reducers: {},
+  reducers: {
+    setLoading: (state, { payload }) => {
+      state.loading = payload.value
+    },
+    setVerifyToken: (state, { payload }) => {
+      state.verifyResponse = payload.value
+    },
+    setSaveToken: (state, { payload }) => {
+      localStorage.setItem('spt_tkn', payload.token)
+    },
+    setSignupResponse: (state, { payload }) => {
+      state.signupResponse = payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(Signin.fulfilled, (state, { payload }) => {
@@ -50,6 +73,13 @@ const AuthSlice = createSlice({
         state.loading = false;
       })
       .addCase(Signup.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(VerifyToken.fulfilled, (state, { payload }: any) => {
+        state.verifyResponse = payload || state.verifyResponse;
+        state.loading = false;
+      })
+      .addCase(VerifyToken.pending, (state) => {
         state.loading = true;
       });
   },

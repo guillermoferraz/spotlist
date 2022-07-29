@@ -31,6 +31,13 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     password: 'The password must have at least 8 characters and must contain at least one uppercase, one lowercase and one special character (symbol)',
     confPassword: 'Password and confirmation do not match'
   },
+  alerts:{
+    userNotFound: 'User not found',
+    incorrectPassword: 'Incorrect password',
+    successLogin: "Login success",
+    emailAlreadyExist: "The email entered is already being used",
+    successRegister: "Successful registration"
+  },
   wait: 'Please wait ...'
 };
 export default en;

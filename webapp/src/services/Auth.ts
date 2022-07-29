@@ -10,8 +10,16 @@ const AuthService = {
   },
   Signup: async (formData: SigninTypes) => {
     const response =  await axios.post(`${env.apiUri}/auth/signup`, formData);
-    return response;
+    return response.data;
   },
+  verifyToken: async (token: string) => {
+    const response = await axios.post(`${env.apiUri}/auth/verify`,{},{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response?.data;
+  }
 };
 export default AuthService;
 

@@ -9,7 +9,7 @@ const env = {
     prefix: process.env.DB_PREFIX,
   },
   secret: process.env.SECRET,
+  jwtSecret: process.env.JWT_SECRET
 };
-
 export default env;
 

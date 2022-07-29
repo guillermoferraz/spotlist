@@ -1,5 +1,7 @@
 import ERRORS from '../constants/errors/errors';
 import hashPassword from '../helpers/hashPassword';
+import jwt from 'jsonwebtoken';
+import env from '../constants/config/env';
 /* Models */
 import UserModel  from '../db/models/user';
 export default class AuthServices {
@@ -33,4 +35,25 @@ export default class AuthServices {
       console.error(err)
     }
   };
+
+  public async VerifyToken (token):Promise<void|any> {
+    try {
+      console.log('TOKEN ON SERVICE:', token)
+      if(token){
+        const splitToken = token.split(' ')[1];
+        const response = jwt.verify(splitToken, env?.jwtSecret, (err, id) => {
+          if(err){
+            return { message: 'Access denied, token expired or incorrect'}
+          } else {
+            return { message: 'Access Success' }
+          }
+        })
+        return response;
+      }
+      return { message: "verify token error" }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
 };

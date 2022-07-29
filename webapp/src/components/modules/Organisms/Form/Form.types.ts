@@ -1,3 +1,4 @@
+
 interface StyleTypes {
   padding?: number | string;
   width?: number | string;
@@ -8,6 +9,7 @@ interface StyleTypes {
 export interface FormTypes {
   styleProps?: StyleTypes;
   submitElement?: JSX.Element | JSX.Element[];
+  onKeyDown?: (event) => void
 };
 export interface EntryTypes {
   id: string;

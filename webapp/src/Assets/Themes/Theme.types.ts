@@ -3,6 +3,8 @@ export type ThemeGlobalTypes = {
     padding?: number | string;
     margin?: number | string;
     minWidth: number;
+    errorPrimary: string;
+    successPrimary: string;
 };
 
 export interface ThemeTypes extends ThemeGlobalTypes {

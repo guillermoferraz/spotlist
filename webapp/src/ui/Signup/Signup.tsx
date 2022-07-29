@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 
 /* Store */
 import { RootState, useAppDispatch } from "../../services/Store";
-import { Signup as sendFormData } from "src/application/Auth";
+import AuthSlice, { Signup as sendFormData } from "src/application/Auth";
 
 /* Modules */
 import { Logo } from 'src/components/modules/Atoms/Logo';
 import { ButtonModule } from 'src/components/modules/Atoms/Button';
 import { Form } from "src/components/modules/Organisms/Form";
+import { Snakbar } from "src/components/modules/Atoms/Snackbar";
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
@@ -33,6 +34,7 @@ export const Signup = () => {
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'));
   const { theme, t } = useSelector((state: RootState) => state.Settings);
   const { signupResponse } = useSelector((state: RootState) => state.Auth);
+  const { setSignupResponse } = AuthSlice.actions;
   const classes = styles(theme);
 
   const [registerData, setRegisterData] = useState<SignupTypes>({
@@ -55,8 +57,49 @@ export const Signup = () => {
     password: false,
     confPassword: false
   });
+  const [alertResponse , setAlertResponse] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
 
-  signupResponse && console.log("response:", signupResponse)
+
+  const handleCleanResponse = (type: string) => {
+    if(type === 'success'){
+      dispatch(setSignupResponse({ message: '' }))
+      setAlertResponse({ open: false, message: '', type: '' })
+      navigate('/signin')
+    } else {
+      dispatch(setSignupResponse({ message: '' }))
+    }
+  }
+
+  useEffect(() => {
+    switch(signupResponse.message){
+      case 'The email entered already exists':
+        setAlertResponse({
+          open: true,
+          message: t.alerts.emailAlreadyExist,
+          type: 'error'
+        })
+        setTimeout(() => { handleCleanResponse('error') }, 1500)
+        break;
+      case 'Success':
+        setAlertResponse({
+          open: true,
+          message: t.alerts.successRegister,
+          type: 'success'
+        })
+        setTimeout(() => { handleCleanResponse('success') }, 1500)
+        break;
+      default:
+        setAlertResponse({
+          open: false,
+          message: '',
+          type: ''
+        })
+    }
+  },[signupResponse])
 
   const handleSubmit = () => {
     if (
@@ -170,6 +213,7 @@ export const Signup = () => {
 
   return (
     <div className={classes.root}>
+      {alertResponse.open && <Snakbar message={alertResponse.message} type={alertResponse.type} open={alertResponse.open} setOpen={() => setAlertResponse({ open: false, message: '', type: '' })} />}
       <title>{`${t.appName} | ${t.title.signup}`}</title>
       <section className={classes.content}>
         {mobile && <Logo />}
@@ -177,6 +221,7 @@ export const Signup = () => {
         <Form
           styleProps={{ width: 0 }}
           entries={listEntries}
+          onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
           submitElement={
             <>
               <div className={classes.containerBtn}>

@@ -4,6 +4,7 @@ import env from "../constants/config/env";
 import passport from "passport";
 import passportLocal from "passport-local";
 import UserModel from '../db/models/user';
+import jwt from 'jsonwebtoken';
 
 import comparePassword from "../helpers/comparePassword";
 
@@ -20,6 +21,7 @@ export default ({ app }: { app: express.Application }) => {
   )
   app.use(passport.initialize());
   app.use(passport.session());
+  
 
   passport.serializeUser((user, done) => {
     return done(null, user);
@@ -39,6 +41,14 @@ export default ({ app }: { app: express.Application }) => {
     }
   });
 
+
+  /**
+   * Access Token Generator
+   */
+  const generateAccessToken = (id) => {
+    return jwt.sign({id: id } , env?.jwtSecret, { expiresIn: '3m' });
+  }
+    
 /*
  * Strategy
  */
@@ -50,7 +60,12 @@ export default ({ app }: { app: express.Application }) => {
         const user = await UserModel.findOne({ email: email });
         const matchPassword = user && await comparePassword(password, user.password)
         if(!user && !matchPassword) return done(null, "User not found");
-        if(user && matchPassword) return done (null, user?.id);
+        if(user && matchPassword) {
+          console.log('***  user mathed **** ')
+          console.log('jwt secret:', env?.jwtSecret)
+          const accessToken = generateAccessToken(user?.id);
+          return done (null, accessToken);
+        }
         if(user && !matchPassword) return done(null, "Incorrect password")
       } catch (err) {
         console.log(err);
@@ -58,5 +73,6 @@ export default ({ app }: { app: express.Application }) => {
       }
     })
   )
+  
 
 }

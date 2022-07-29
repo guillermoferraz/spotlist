@@ -28,7 +28,7 @@ const App = () => {
         <Header />
         <div className={styles.App}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<div><h1>Lo siento no hay resultado 404</h1></div>} />
