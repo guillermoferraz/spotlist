@@ -6,9 +6,11 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   es: 'Espanol',
   language: 'Idioma',
   theme: 'Tema',
+  logout: 'Cerrar sesión',
   title: {
     signin: "Iniciar sesión",
-    signup: "Regístrate"
+    signup: "Regístrate",
+    home: 'Inicio'
   },
   labels: {
     email: 'Correo electrónico',
@@ -38,6 +40,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     emailAlreadyExist: "El correo electrónico ingresado ya esta siendo utilizado",
     successRegister: "Registro exitoso"
   },
-  wait: 'Por favor espere ...'
+  wait: 'Por favor espere ...',
+  accessDenied: 'Acceso denegado',
+  accessDeniedInfo: 'Por favor vuelva a iniciar sesión'
 };
 export default es;

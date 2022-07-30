@@ -41,14 +41,12 @@ export default ({ app }: { app: express.Application }) => {
     }
   });
 
-
   /**
    * Access Token Generator
    */
   const generateAccessToken = (id) => {
-    return jwt.sign({id: id } , env?.jwtSecret, { expiresIn: '3m' });
-  }
-    
+    return jwt.sign({id: id } , env?.jwtSecret, { expiresIn: '24h' });
+  }    
 /*
  * Strategy
  */
@@ -61,8 +59,6 @@ export default ({ app }: { app: express.Application }) => {
         const matchPassword = user && await comparePassword(password, user.password)
         if(!user && !matchPassword) return done(null, "User not found");
         if(user && matchPassword) {
-          console.log('***  user mathed **** ')
-          console.log('jwt secret:', env?.jwtSecret)
           const accessToken = generateAccessToken(user?.id);
           return done (null, accessToken);
         }

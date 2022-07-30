@@ -6,9 +6,11 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   es: 'Spanish',
   language: 'Language',
   theme: 'Theme',
+  logout: 'Logout',
   title: {
     signin: "Sign in",
-    signup: "Sign up"
+    signup: "Sign up",
+    home: 'Home'
   },
   labels: {
     email: 'Email',
@@ -38,6 +40,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     emailAlreadyExist: "The email entered is already being used",
     successRegister: "Successful registration"
   },
-  wait: 'Please wait ...'
+  wait: 'Please wait ...',
+  accessDenied: 'Access denied',
+  accessDeniedInfo: 'Please log in again'
 };
 export default en;

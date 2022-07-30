@@ -12,7 +12,6 @@ const UserControllers = (app: Router) => {
 
   router.get('/' ,async (req: Request, res: Response, next: NextFunction) => {
     const authorization = verifyAccess(req.headers['authorization']);
-    console.log('AUTHORIZATION ON ROUTE:', authorization)
     if(authorization.access){
       const response = await UserService.getUser(authorization?.id);
       res.json(response)

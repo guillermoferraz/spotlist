@@ -13,7 +13,7 @@ export const getUser = createAsyncThunk('/user', async () => {
 const UserSlice = createSlice({
   name: 'User',
   initialState: {
-    user: '',
+    user: { id: '', email: '', access: '' },
     loading: false
   },
   reducers: {},
