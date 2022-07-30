@@ -69,6 +69,4 @@ export default ({ app }: { app: express.Application }) => {
       }
     })
   )
-  
-
-}
+};
