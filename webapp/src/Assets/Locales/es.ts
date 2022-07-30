@@ -4,6 +4,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   ...globals,
   en: 'Ingles',
   es: 'Espanol',
+  description: 'El sitio para tu música',
   language: 'Idioma',
   theme: 'Tema',
   logout: 'Cerrar sesión',

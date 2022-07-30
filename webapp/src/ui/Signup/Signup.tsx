@@ -11,6 +11,7 @@ import { Logo } from 'src/components/modules/Atoms/Logo';
 import { ButtonModule } from 'src/components/modules/Atoms/Button';
 import { Form } from "src/components/modules/Organisms/Form";
 import { Snakbar } from "src/components/modules/Atoms/Snackbar";
+import { SplitScreen } from "src/components/modules/Organisms/SplitScreen";
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
@@ -215,6 +216,8 @@ export const Signup = () => {
     <div className={classes.root}>
       {alertResponse.open && <Snakbar message={alertResponse.message} type={alertResponse.type} open={alertResponse.open} setOpen={() => setAlertResponse({ open: false, message: '', type: '' })} />}
       <title>{`${t.appName} | ${t.title.signup}`}</title>
+      <div className={!mobile ? classes.split : classes.noSplit}>
+      {!mobile && <SplitScreen/>}
       <section className={classes.content}>
         {mobile && <Logo />}
         <h1 className={classes.title}>{t.title.signup}</h1>
@@ -224,7 +227,7 @@ export const Signup = () => {
           onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
           submitElement={
             <>
-              <div className={classes.containerBtn}>
+              <div>
                 <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
                 <ButtonModule
                   text={t.buttons.signup}
@@ -237,6 +240,7 @@ export const Signup = () => {
           }
         />
       </section>
+      </div>
     </div>
   )
 }

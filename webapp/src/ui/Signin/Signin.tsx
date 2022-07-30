@@ -17,6 +17,7 @@ import { Snakbar } from 'src/components/modules/Atoms/Snackbar';
 import { SigninTypes, CONSTANTS_ENTRY } from "src/components/schemas/Auth.Schema";
 import { EntryTypes, ErrorRegisterTypes } from "src/components/modules/Organisms/Form/Form.types";
 import { isValidEmail, isValidPassword } from "src/application/Validators";
+import { SplitScreen } from 'src/components/modules/Organisms/SplitScreen';
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
@@ -183,6 +184,8 @@ export const Signin = () => {
       <title>{`${t.appName} | ${t.title.signin}`}</title>
       {loading && <Loading/>}
       {openAlert.open && <Snakbar type={openAlert.type} message={openAlert.message} setOpen={handleClose} open={openAlert.open} />}
+      <div className={!mobile ? classes.split : classes.noSplit}>
+      {!mobile && <SplitScreen/>}
       <section className={classes.content}>
         {mobile && <Logo />}
         <h1 className={classes.title}>{t.title.signin}</h1>
@@ -192,7 +195,7 @@ export const Signin = () => {
           onKeyDown={(event) => event.key === "Enter" && handleSubmit()}
           submitElement={
             <>
-              <div className={classes.containerBtn}>
+              <div>
                 <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
                 <ButtonModule
                   text={t.buttons.signin}
@@ -205,6 +208,7 @@ export const Signin = () => {
           }
         />
       </section>
+      </div>
     </div>
   )
 }

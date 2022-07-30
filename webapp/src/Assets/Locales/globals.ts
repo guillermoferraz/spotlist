@@ -1,4 +1,4 @@
 const globals: { [key: string]: string } = {
-    appName: 'Spotlist'
+    appName: 'Spotlist',
   };
   export default globals;
