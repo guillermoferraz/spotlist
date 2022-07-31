@@ -10,14 +10,21 @@ export const getLoginData = createAsyncThunk('/auth/spotLogin', async (code:{ [k
     // window.location.replace('/signin')
   }
 });
-export const refreshToken = createAsyncThunk('/auth/refresh', async (refreshToken: { [key: string]: string }) => {
+export const getRefreshToken = createAsyncThunk('/auth/refresh', async (refreshToken: { [key: string]: string }) => {
     try {
         const response = await SpofityService.refresh(refreshToken);
         return response.data;
     } catch (err) {
         console.error(err)
-        window.location.replace("/signin")
     }
+});
+export const searchTracks: any = createAsyncThunk('/searchTracks', async (data: { search: string, accessToken: string }) => {
+  try {
+    const response = await SpofityService.searchTracks(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 const SpotifySlice = createSlice({
@@ -28,11 +35,17 @@ const SpotifySlice = createSlice({
     expiresIn: 0,
     refreshToken: "",
     refreshResponse: {},
-    spotifyEnabled: false
+    spotifyEnabled: false,
+    loading: false,
+    saveRefreshToken: '',
+    searchResponse: { tracks: { items: [] } }
   },
   reducers: {
     setSpotifyEnabled: (state, { payload }) => {
         state.spotifyEnabled = payload.value
+    },
+    getRefresh: (state) => {
+      state.saveRefreshToken = typeof window !== 'undefined' && localStorage.getItem("refTkn") || ""
     }
   },
   extraReducers: (builder) => {
@@ -41,9 +54,25 @@ const SpotifySlice = createSlice({
         state.expiresIn = payload ? payload.expiresIn : 0;
         state.accessToken = payload ? payload.accessToken : '';
         state.refreshToken = payload ?  payload.refreshToken : '';
+        state.loading = false
+        payload?.refreshToken && localStorage.setItem('refTkn', payload.refreshToken)
     })
-    .addCase(refreshToken.fulfilled, (state, { payload }) => {
-        state.refreshResponse = payload
+    .addCase(getLoginData.pending, (state) => {
+      state.loading = true
+    })
+    .addCase(getRefreshToken.fulfilled, (state, { payload }) => {
+        state.refreshResponse = payload;
+        state.loading = false
+    })
+    .addCase(getRefreshToken.pending, (state) => {
+      state.loading = true
+    })
+    .addCase(searchTracks.fulfilled, (state, { payload }) => {
+      state.searchResponse = payload;
+      state.loading = false;
+    })
+    .addCase(searchTracks.pending, (state, { payload }) => {
+      state.loading = true;
     })
   }
 });

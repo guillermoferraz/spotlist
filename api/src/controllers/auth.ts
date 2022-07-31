@@ -59,6 +59,28 @@ const AuthControllers = (app: Router) => {
       .catch(err => {
         res.sendStatus(400)
       })
+  });
+  router.post("/refresh", (req, res) => {
+    const refreshToken = req.body.refreshToken
+    const spotifyApi = new SpotifyWebApi({
+      redirectUri: env.redirect,
+      clientId: env.clientId,
+      clientSecret: env.spotSecret,
+      refreshToken,
+    })
+  
+    spotifyApi
+      .refreshAccessToken()
+      .then(data => {
+        res.json({
+          accessToken: data.body.accessToken,
+          expiresIn: data.body.expiresIn,
+        })
+      })
+      .catch(err => {
+        console.log(err)
+        res.sendStatus(400)
+      })
   })
 };
 export default AuthControllers;
