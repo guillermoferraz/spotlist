@@ -8,6 +8,7 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   language: 'Language',
   theme: 'Theme',
   logout: 'Logout',
+  spotifyInfo: "In order to provide you with musical content we have obtained the data from Spotify Api Developers. You can continue by pressing the button below.",
   title: {
     signin: "Sign in",
     signup: "Sign up",
@@ -25,7 +26,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   },
   buttons: {
     signin: "Sign in",
-    signup: "Sign up"
+    signup: "Sign up",
+    getInto: "Get into"
   },
   errors:{
     required: 'Input required! *',

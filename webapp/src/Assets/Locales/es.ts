@@ -5,6 +5,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   en: 'Ingles',
   es: 'Espanol',
   description: 'El sitio para tu música',
+  spotifyInfo: "Para proporcionarle contenido musical, hemos obtenido los datos de Spotify Api Developers. Puede continuar presionando el botón de abajo.",
   language: 'Idioma',
   theme: 'Tema',
   logout: 'Cerrar sesión',
@@ -25,7 +26,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   },
   buttons: {
     signin: "Iniciar sesión",
-    signup: "Regístrate"
+    signup: "Regístrate",
+    getInto: "Ingresar"
   },
   errors:{
     required: 'Entrada requerida! *',

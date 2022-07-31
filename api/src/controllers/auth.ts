@@ -3,6 +3,9 @@ import { Response, Request, NextFunction } from "express";
 import ERRORS from "../constants/errors/errors";
 import AuthServices from "../services/auth";
 import passport from 'passport';
+import env from '../constants/config/env';
+const SpotifyWebApi = require("spotify-web-api-node")
+
 const router = Router();
 
 const AuthControllers = (app: Router) => {
@@ -34,6 +37,29 @@ const AuthControllers = (app: Router) => {
     const response = await AuthService.VerifyToken(req.headers['authorization']);
     res.json(response);
   });
+
+  router.post("/spotLogin", (req, res) => {
+    const code = req.body.code
+    console.log(code)
+    const spotifyApi = new SpotifyWebApi({
+      redirectUri: env.redirect,
+      clientId: env.clientId,
+      clientSecret: env.spotSecret,
+    })
+  
+    spotifyApi
+      .authorizationCodeGrant(code)
+      .then(data => {
+        res.json({
+          accessToken: data.body.access_token,
+          refreshToken: data.body.refresh_token,
+          expiresIn: data.body.expires_in,
+        })
+      })
+      .catch(err => {
+        res.sendStatus(400)
+      })
+  })
 };
 export default AuthControllers;
 

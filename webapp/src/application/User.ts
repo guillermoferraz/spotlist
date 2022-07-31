@@ -4,19 +4,25 @@ import UserService from "src/services/User";
 export const getUser = createAsyncThunk('/user', async () => {
   try {
     const response = await UserService.getUser();
-    console.log('store response:', response)
     return response;
   } catch (err) {
     console.error(err)
   }
 });
+
 const UserSlice = createSlice({
   name: 'User',
   initialState: {
     user: { id: '', email: '', access: '' },
-    loading: false
+    loading: false,
+    code: {}
   },
-  reducers: {},
+  reducers: {
+    setSpotCode: (state) => {
+      const spotCode: any = typeof window !== 'undefined' ?  new URLSearchParams(window.location.search).get("code") : ''
+      state.code = spotCode 
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(getUser.fulfilled, (state, { payload }) => {
       state.user = payload;

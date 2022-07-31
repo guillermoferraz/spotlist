@@ -16,6 +16,12 @@ export default class UserServices {
         if(userData){
           const response = { email: userData.email, id: userData.id, access: 'Authorized' }
           return response
+        } else {
+          return {
+            email: "",
+            id: "",
+            access: "Denied"
+          }
         }
     } catch (err) { 
       console.error(err)

@@ -9,6 +9,9 @@ const env = {
     prefix: process.env.DB_PREFIX,
   },
   secret: process.env.SECRET,
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET,
+  clientId: process.env.CLIENT_ID,
+  redirect: process.env.REDIRECT_URI,
+  spotSecret: process.env.CLIENT_SECRET
 };
 export default env;

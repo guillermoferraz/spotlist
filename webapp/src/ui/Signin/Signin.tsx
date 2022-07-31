@@ -83,7 +83,7 @@ export const Signin = () => {
   }
   const handleRedirectHome = () => {
     setOpenAlert({ type: '', message: '' , open: false});
-    navigate('/home')
+    navigate('/spotifyLogin')
   }
 
   useEffect(() => {
