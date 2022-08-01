@@ -3,9 +3,9 @@ import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 
 const styles = makeStyles({
     root: {
-        width: '70vw',
         padding: 0,
         margin: 'auto',
+        width: '100%',
         marginTop: '1.5rem',
         "&>div": {
             '&>div': {
@@ -15,6 +15,6 @@ const styles = makeStyles({
         '&>div>div>div>div>button>svg': {
             color: (props: ThemeTypes) => props.colorPalletPrimary,
         }
-    },
+    }
 });
 export default styles;

@@ -7,7 +7,7 @@ const styles = makeStyles({
         maxHeight: '10rem',
         border: '1px solid',
         borderRadius: 20,
-        margin: 10,
+        margin: 'auto',
         '&>img':{
             width: '10rem',
             height: '10rem',

@@ -5,10 +5,10 @@ const styles = makeStyles({
     root: {
         display: 'grid',
         gap: 10,
-        margin: 'auto',
         overflowX: 'hidden',
         overflowY: 'auto',
         maxHeight: '80vh',
+        margin: 'auto',
         width: '100%',
         '&::-webkit-scrollbar': {
             width: "5px",
@@ -22,17 +22,17 @@ const styles = makeStyles({
             marginBottom: "70px",
         },
     },
-    ['@media (min-width: 300px)']: {
+    ['@media (min-width: 560px)']: {
         root: {
             gridTemplateColumns: 'repeat(2, 1fr)',
         }
     },
-    ['@media (min-width: 600px)']: {
+    ['@media (min-width: 889px)']: {
         root: {
             gridTemplateColumns: 'repeat(3, 1fr)',
         }
     },
-    ['@media (min-width: 900px)']: {
+    ['@media (min-width: 1024px)']: {
         root: {
             gridTemplateColumns: 'repeat(4, 1fr)',
         }

@@ -77,7 +77,7 @@ export const Home = () => {
       {denied && <AccessDenied />}
       {loading && <Loading />}
       {searchResponse && searchResponse.tracks && searchResponse.tracks.items.length > 0 && (
-        <div>
+        <div className={classes.containerGroup}>
           <CardGroup searchResults={searchResponse.tracks.items} />
           {PlayerModule()}
         </div>
