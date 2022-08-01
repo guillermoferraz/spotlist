@@ -1,13 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import SpofityService from "src/services/Spotify";
 
-export const getLoginData = createAsyncThunk('/auth/spotLogin', async (code:{ [key: string]: string }) => {
+export const getLoginData = createAsyncThunk('/auth/spotLogin', async (code:{ [key: string]: string | undefined }) => {
   try {
     const response = await SpofityService.login(code);
     return response.data;
-  } catch (err) {
+  } catch (err: any) {
     console.error(err)
-    // window.location.replace('/signin')
   }
 });
 export const getRefreshToken = createAsyncThunk('/auth/refresh', async (refreshToken: { [key: string]: string }) => {
@@ -30,15 +29,16 @@ export const searchTracks: any = createAsyncThunk('/searchTracks', async (data: 
 const SpotifySlice = createSlice({
   name: 'Spotify',
   initialState: {
-    loginResponse: {},
+    loginResponse: { accessToken: undefined, expiresIn: 0, refreshToken: undefined },
     accessToken: "",
     expiresIn: 0,
-    refreshToken: "",
+    refreshToken: undefined,
     refreshResponse: {},
     spotifyEnabled: false,
     loading: false,
     saveRefreshToken: '',
-    searchResponse: { tracks: { items: [] } }
+    searchResponse: { tracks: { items: [] } },
+    selectedData: { uri: undefined }
   },
   reducers: {
     setSpotifyEnabled: (state, { payload }) => {
@@ -46,14 +46,37 @@ const SpotifySlice = createSlice({
     },
     getRefresh: (state) => {
       state.saveRefreshToken = typeof window !== 'undefined' && localStorage.getItem("refTkn") || ""
+    },
+    setSelectedData: (state, { payload }) => {
+      state.selectedData = payload
     }
   },
   extraReducers: (builder) => {
     builder.addCase(getLoginData.fulfilled, (state, { payload }) => {
+        if (typeof window !== 'undefined' && payload?.expiresIn > 0 && payload?.accessToken && payload?.refreshToken){
+            localStorage.setItem('accDt',JSON.stringify({exp: payload.expiresIn, at: payload.accessToken, rt: payload.refreshToken}))
+        }
+        const existentData = () => {
+          const storageData: any = typeof window !== 'undefined' && localStorage.getItem('accDt')
+          const savedData = storageData && JSON.parse(storageData)
+          if(savedData){
+            return {
+              exp: savedData.exp,
+              at :savedData.at,
+              rt: savedData.rt
+            }
+          } else {
+            return {
+              exp: 0,
+              at: undefined,
+              rt: undefined
+            }
+          }
+        }
         state.loginResponse = payload;
-        state.expiresIn = payload ? payload.expiresIn : 0;
-        state.accessToken = payload ? payload.accessToken : '';
-        state.refreshToken = payload ?  payload.refreshToken : '';
+        state.expiresIn = payload ? payload.expiresIn > 0 && payload.expiresIn : existentData().exp;
+        state.accessToken = payload ? payload.accessToken : existentData().at;
+        state.refreshToken = payload ?  payload.refreshToken : existentData().rt;
         state.loading = false
         payload?.refreshToken && localStorage.setItem('refTkn', payload.refreshToken)
     })

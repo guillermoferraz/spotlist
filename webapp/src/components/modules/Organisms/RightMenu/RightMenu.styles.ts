@@ -4,7 +4,7 @@ import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 const styles = makeStyles({
   root: {
     backgroundColor: (props: ThemeTypes) => props.bgSecondary,
-    maxWidth: '30%',
+    width: '30vw',
     marginInlineStart: 'auto',
     minHeight: '90vh',
     margin: 0,

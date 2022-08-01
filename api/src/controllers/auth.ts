@@ -40,7 +40,6 @@ const AuthControllers = (app: Router) => {
 
   router.post("/spotLogin", (req, res) => {
     const code = req.body.code
-    console.log(code)
     const spotifyApi = new SpotifyWebApi({
       redirectUri: env.redirect,
       clientId: env.clientId,

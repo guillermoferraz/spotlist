@@ -8,8 +8,19 @@ const styles = makeStyles({
         margin: 'auto',
         overflowX: 'hidden',
         overflowY: 'auto',
-        maxHeight: '85vh',
-        width: '100%'
+        maxHeight: '80vh',
+        width: '100%',
+        '&::-webkit-scrollbar': {
+            width: "5px",
+            backgroundColor: (props:ThemeTypes) => props.bgPrimary,
+        },
+        '&::-webkit-scrollbar-thumb': {
+            backgroundColor: "#93A0AD",
+            borderRadius: "238px",
+        },
+        "&::-webkit-scrollbar-track": {
+            marginBottom: "70px",
+        },
     },
     ['@media (min-width: 300px)']: {
         root: {

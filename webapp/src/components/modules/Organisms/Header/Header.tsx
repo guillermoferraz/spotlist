@@ -42,6 +42,7 @@ export const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('spt_tkn')
     localStorage.removeItem('refTkn')
+    localStorage.removeItem('accDt')
     setAnchorEl(null)
     setTimeout(() => {window.location.replace('/signin')}, 500)
   }

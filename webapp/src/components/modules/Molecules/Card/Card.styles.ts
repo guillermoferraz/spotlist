@@ -6,11 +6,17 @@ const styles = makeStyles({
         maxWidth: '10rem',
         maxHeight: '10rem',
         border: '1px solid',
-        borderRadius: 8,
+        borderRadius: 20,
         margin: 10,
         '&>img':{
             width: '10rem',
-            height: '10rem'
+            height: '10rem',
+            borderRadius: 20,
+        },
+        '&:hover':{
+            cursor: 'pointer',
+            border: (props: ThemeTypes) => `1px solid  ${props.colorPalletPrimary}`,
+            boxShadow: (props: ThemeTypes) => `0px 3px 16px ${props.colorPalletPrimary}`
         }
     }
 });

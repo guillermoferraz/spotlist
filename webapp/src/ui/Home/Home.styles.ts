@@ -3,7 +3,8 @@ import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 
 const styles = makeStyles({
     root: {
-        display: 'flex'
+        display: 'flex',
+        margin: 0
     }
 });
 export default styles;

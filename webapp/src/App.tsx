@@ -1,5 +1,5 @@
-import { Suspense, lazy } from "react";
-import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Suspense, lazy, useEffect } from "react";
+import {BrowserRouter as Router, Routes, Route , useNavigate} from "react-router-dom";
 
 /* UI Components */
 const Home = lazy(() => import('./ui/Home').then(({ Home }) => ({ default: Home })));
@@ -16,7 +16,16 @@ import { Background } from "./components/modules/Atoms/Background";
 /* Styles */
 import styles from "./App.module.css";
 
+
+
+
 const App = () => {
+  
+  const route = typeof window !== 'undefined' ? window.location.pathname : null
+  useEffect(() => {
+    if(route && route === '/') window.location.replace('/signin')
+  },[route])
+
   return (
     <Router>
       <Background />

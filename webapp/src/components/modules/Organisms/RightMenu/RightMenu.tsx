@@ -4,6 +4,8 @@ import { RootState } from 'src/services/Store';
 
 /* Modules */
 import { Textfield } from '../../Atoms/Textfield';
+import { Player } from 'src/components/modules/Molecules/Player';
+import { ListItemModule } from '../../Molecules/ListItem';
 
 /* Styles */
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,6 +18,7 @@ export const RightMenu = ({ search, setSearch, handleSearch, onKeyPress }) => {
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
   const { theme } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme);
+
   return (
     <div className={classes.root} tabIndex={0}>
       <div className={classes.containerSearch} onKeyDown={onKeyPress}>
@@ -31,6 +34,7 @@ export const RightMenu = ({ search, setSearch, handleSearch, onKeyPress }) => {
         icon={<SearchIcon className={classes.icon} onClick={() => handleSearch()}/>}
       />
       </div>
+      <ListItemModule/>
     </div>
   )
 }

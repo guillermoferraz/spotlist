@@ -15,7 +15,7 @@ const UserSlice = createSlice({
   initialState: {
     user: { id: '', email: '', access: '' },
     loading: false,
-    code: {}
+    code: {code: undefined}
   },
   reducers: {
     setSpotCode: (state) => {
