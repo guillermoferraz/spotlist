@@ -18,7 +18,9 @@ export const Player = () => {
 
   useEffect(() => {
      setSelectedTrack(selectedData.uri)
+     setPlay(true)
   },[selectedData])
+
 
   const RenderPlayer = (audio) => {
     if(audio) {
@@ -42,7 +44,7 @@ export const Player = () => {
     <div className={classes.root}>
       <div>
       </div>
-      {selectedTrack && (RenderPlayer(selectedTrack))}
+      {RenderPlayer(selectedTrack)}
     </div>
 
   )

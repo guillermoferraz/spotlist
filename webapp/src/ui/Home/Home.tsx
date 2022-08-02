@@ -6,13 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from 'src/services/Store';
 import { useAppDispatch } from 'src/services/Store';
 import UserSlice, { getUser } from 'src/application/User';
-import SpotifySlice, { getLoginData, getRefreshToken, searchTracks } from 'src/application/Spotify';
+import SpotifySlice, { getLoginData, searchTracks, getCurrentPlayback } from 'src/application/Spotify';
 /* Modules */
 import { AccessDenied } from 'src/components/modules/Layouts/AccessDenied';
 import { Loading } from 'src/components/modules/Layouts/Loading';
 import { RightMenu } from 'src/components/modules/Organisms/RightMenu';
 import { CardGroup } from 'src/components/modules/Organisms/CardGroup';
 import { Player } from 'src/components/modules/Molecules/Player';
+import { Listening } from 'src/components/modules/Organisms/Listening';
+import { ButtonArrow } from 'src/components/modules/Atoms/ButtonArrow';
 /* Styles */
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -31,7 +33,18 @@ export const Home = () => {
   const { setSpotifyEnabled, getRefresh } = SpotifySlice.actions;
   const [denied, setDenied] = useState(false);
   const [search, setSearch] = useState<string>('')
+  const [layout, setLayout] = useState('');
 
+  const buttonPlay = (document.querySelector('.rswp__toggle') as HTMLButtonElement);
+
+  const checkListening = (title) => {
+    if(title && title === 'Pause'){
+      dispatch(getCurrentPlayback({ accessToken : accessToken}))
+    }
+  }
+  useEffect(() => {
+    buttonPlay && buttonPlay.addEventListener('click', () => checkListening(buttonPlay.title) )
+  },[buttonPlay])
 
   
   useEffect(() => {
@@ -71,6 +84,23 @@ export const Home = () => {
     )
   }
 
+  const handleLayout = () => {
+    if(layout === 'LISTENING') setLayout('')
+    if(layout === ''){
+      dispatch(getCurrentPlayback({ accessToken : accessToken}))
+      setTimeout(() => {setLayout("LISTENING")}, 400)
+    } 
+  }
+
+  const LayoutReturn = (layout) => {
+    switch(layout){
+      case 'LISTENING':
+        return ( <Listening/>)
+      default:
+        return ( <CardGroup searchResults={searchResponse.tracks.items} />)
+    }
+  }
+
   return (
     <div className={classes.root}>
       <title>{t.appName}&nbsp;|&nbsp;{t.title.home}</title>
@@ -78,8 +108,9 @@ export const Home = () => {
       {loading && <Loading />}
       {searchResponse && searchResponse.tracks && searchResponse.tracks.items.length > 0 && (
         <div className={classes.containerGroup}>
-          <CardGroup searchResults={searchResponse.tracks.items} />
-          {PlayerModule()}
+          <ButtonArrow layout={layout} onClick={() => handleLayout() }/>
+          {LayoutReturn(layout)}
+          <div style={{ display: `${layout === 'LISTENING' ? 'none' : 'inline'}` }}>{PlayerModule()}</div>
         </div>
       )}
       <RightMenu search={search} setSearch={setSearch} handleSearch={handleSearch} onKeyPress={onKeyPress} />

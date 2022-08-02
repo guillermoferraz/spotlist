@@ -24,6 +24,15 @@ export const searchTracks: any = createAsyncThunk('/searchTracks', async (data: 
   } catch (err) {
     console.error(err)
   }
+});
+
+export const getCurrentPlayback = createAsyncThunk('/getCurrentPlayback', async (data: { accessToken: string } ) => {
+  try {
+    const response = await SpofityService.getCurrentPlayback(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 const SpotifySlice = createSlice({
@@ -38,7 +47,9 @@ const SpotifySlice = createSlice({
     loading: false,
     saveRefreshToken: '',
     searchResponse: { tracks: { items: [] } },
-    selectedData: { uri: undefined }
+    selectedData: { uri: undefined },
+    currentPlayback: {},
+    playbackLoaded: false
   },
   reducers: {
     setSpotifyEnabled: (state, { payload }) => {
@@ -48,7 +59,11 @@ const SpotifySlice = createSlice({
       state.saveRefreshToken = typeof window !== 'undefined' && localStorage.getItem("refTkn") || ""
     },
     setSelectedData: (state, { payload }) => {
-      state.selectedData = payload
+      state.selectedData = payload.item
+      state.playbackLoaded = true
+    },
+    setPlaybackLoaded: (state, { payload }) => {
+      state.playbackLoaded = payload.value
     }
   },
   extraReducers: (builder) => {
@@ -96,6 +111,14 @@ const SpotifySlice = createSlice({
     })
     .addCase(searchTracks.pending, (state, { payload }) => {
       state.loading = true;
+    })
+    .addCase(getCurrentPlayback.fulfilled, (state, { payload }) => {
+      state.currentPlayback = payload;
+      state.loading = false;
+      state.playbackLoaded = false
+    })
+    .addCase(getCurrentPlayback.pending, (state, { payload }) => {      
+      // state.loading = true;
     })
   }
 });

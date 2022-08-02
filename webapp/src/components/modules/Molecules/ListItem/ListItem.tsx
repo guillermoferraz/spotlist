@@ -33,8 +33,9 @@ export const ListItemModule = () => {
     }
   }
 
+
   const handleTrack = (item) => {
-    dispatch(setSelectedData(item))
+    dispatch(setSelectedData({ item: item }))
   }
 
   return (

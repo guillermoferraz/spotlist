@@ -21,6 +21,12 @@ const SpotifyService = {
 
     }
 
+  },
+  getCurrentPlayback: async (data) => {
+    const spotifyApi = new SpotifyWebApi({ clientId: env.clientId });
+    spotifyApi.setAccessToken(data.accessToken)
+    const response = await spotifyApi.getMyCurrentPlaybackState()
+    return response.body
   }
 };
 export default SpotifyService;

@@ -8,6 +8,7 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   language: 'Language',
   theme: 'Theme',
   logout: 'Logout',
+  playbackPanel: 'Playback panel',
   spotifyInfo: "In order to provide you with musical content we have obtained the data from Spotify Api Developers. You can continue by pressing the button below.",
   title: {
     signin: "Sign in",
@@ -22,7 +23,7 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     notHaveAccount: 'Do not you have an account yet ?',
     notRememberPassword: 'Do not you remember your password ?',
     recover: "Recover",
-    alreadyAccount: "Do you already have an account ?"
+    alreadyAccount: "Do you already have an account ?",
   },
   buttons: {
     signin: "Sign in",

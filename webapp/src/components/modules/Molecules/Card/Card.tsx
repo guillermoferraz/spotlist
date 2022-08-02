@@ -13,7 +13,7 @@ export const Card = ({ cover }) => {
   const classes = styles(theme);
 
   const handleSelected = (data) => {
-    dispatch(setSelectedData(data))
+    dispatch(setSelectedData({item: data}))
   }
   return (
     <div className={classes.root} onClick={() => handleSelected(cover)}>

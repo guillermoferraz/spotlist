@@ -9,6 +9,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   language: 'Idioma',
   theme: 'Tema',
   logout: 'Cerrar sesión',
+  playbackPanel: 'Panel de reproducción',
   title: {
     signin: "Iniciar sesión",
     signup: "Regístrate",
