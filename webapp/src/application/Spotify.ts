@@ -33,6 +33,24 @@ export const getCurrentPlayback = createAsyncThunk('/getCurrentPlayback', async 
   } catch (err) {
     console.error(err)
   }
+});
+
+export const getAlbumByArtist = createAsyncThunk('getAlbumByArtist', async (data: { accessToken: string, id: string }) => {
+  try{
+    const response = await SpofityService.getAlbumByArtist(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
+});
+
+export const getAlbum = createAsyncThunk('getAlbum', async (data: { accessToken: string, id: string }) => {
+  try {
+    const response = await SpofityService.getAlbum(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
 })
 
 const SpotifySlice = createSlice({
@@ -47,9 +65,27 @@ const SpotifySlice = createSlice({
     loading: false,
     saveRefreshToken: '',
     searchResponse: { tracks: { items: [] } },
-    selectedData: { uri: undefined },
+    selectedData: { uri: undefined, artists: [ {id: undefined} ] },
     currentPlayback: {},
-    playbackLoaded: false
+    playbackLoaded: false,
+    albumByArtist: {items: undefined},
+    album: {
+      artists: undefined,
+      images: [
+        {url: undefined}
+      ], 
+      tracks: 
+      { 
+        items: 
+        [
+          { name: undefined,
+            id: undefined, 
+            duration_ms: undefined, 
+            track_number: undefined 
+          }
+        ] 
+      } 
+    }
   },
   reducers: {
     setSpotifyEnabled: (state, { payload }) => {
@@ -119,6 +155,12 @@ const SpotifySlice = createSlice({
     })
     .addCase(getCurrentPlayback.pending, (state, { payload }) => {      
       // state.loading = true;
+    })
+    .addCase(getAlbumByArtist.fulfilled, (state, { payload }) => {
+      state.albumByArtist = payload;
+    })
+    .addCase(getAlbum.fulfilled, (state, { payload }) => {
+      state.album = payload
     })
   }
 });

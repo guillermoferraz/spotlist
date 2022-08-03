@@ -47,8 +47,6 @@ export const Listening = () => {
     artist && track && dispatch(getLyrics({ artist: artist[0]?.name, track: track }))
   },[track, artist])
 
-  console.log('lyrics:', lyrics)
-
   const artistName = (artists) => {
     if (artists && artists.length > 0) {
       return artists.map(artist => (
@@ -71,7 +69,6 @@ export const Listening = () => {
     }
   }, [isPlaying])
 
-  console.log(isPlaying)
   return (
     <div className={classes.root}>
       { (loading || additionalLoading) && <Loading />}

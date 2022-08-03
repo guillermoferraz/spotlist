@@ -14,8 +14,8 @@ export const CardGroup = ({ searchResults }) => {
 
   return (
     <div className={classes.root}>
-      {searchResults && searchResults.map(item => (
-        <>{item.album.images.length > 0 && <Card cover={item.album}/> }</>
+      {searchResults && searchResults.length > 0 && searchResults.map(item => (
+        <>{item.images.length > 0 && <div key={item.id}><Card cover={item}/></div> }</>
       ))}
     </div>
   )
