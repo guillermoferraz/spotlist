@@ -7,7 +7,7 @@ const styles = makeStyles({
         gap: 10,
         overflowX: 'hidden',
         overflowY: 'auto',
-        maxHeight: '80vh',
+        maxHeight: '73vh',
         margin: 'auto',
         width: '100%',
         '&::-webkit-scrollbar': {

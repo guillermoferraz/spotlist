@@ -3,7 +3,7 @@ import ThemeGlobal from "./Theme.global";
 
 const themeLight: ThemeTypes = {
     ...ThemeGlobal,
-    bgPrimary: 'lightBlue',
+    bgPrimary: '#EDF0ED',
     bgSecondary: '#ffffff',
     bgLight: '#383F61',
     colorPrimary: 'black',

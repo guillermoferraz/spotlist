@@ -5,13 +5,14 @@ import AuthSlice from "src/application/Auth";
 import SettingsSlice from "src/application/Settings";
 import UserSlice from "src/application/User";
 import SpotifySlice from "src/application/Spotify";
-
+import AdditionalSlice from "src/application/Additional";
 const store = configureStore({
   reducer: {
     Auth: AuthSlice.reducer,
     Settings: SettingsSlice.reducer,
     User: UserSlice.reducer,
-    Spotify: SpotifySlice.reducer
+    Spotify: SpotifySlice.reducer,
+    Additional: AdditionalSlice.reducer
   },
 })
 export default store;

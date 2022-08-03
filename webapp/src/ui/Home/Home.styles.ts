@@ -4,7 +4,7 @@ import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 const styles = makeStyles({
     root: {
         display: 'flex',
-        margin: 0
+        margin: 0,
     },
     containerGroup: {
         width: '100%',

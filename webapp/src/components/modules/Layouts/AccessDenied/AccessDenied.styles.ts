@@ -7,7 +7,7 @@ const styles = makeStyles({
         width: '100%',
         height: '100%',
         zIndex: 2,
-        backgroundColor: (props: ThemeTypes) => props.backgroundLoding,
+        backgroundColor: (props: ThemeTypes) => props.bgPrimary,
         top: 0,
         right: 0,
         left: 0,

@@ -110,7 +110,7 @@ export const Home = () => {
         <div className={classes.containerGroup}>
           <ButtonArrow layout={layout} onClick={() => handleLayout() }/>
           {LayoutReturn(layout)}
-          <div style={{ display: `${layout === 'LISTENING' ? 'none' : 'inline'}` }}>{PlayerModule()}</div>
+          {PlayerModule()}
         </div>
       )}
       <RightMenu search={search} setSearch={setSearch} handleSearch={handleSearch} onKeyPress={onKeyPress} />

@@ -5,7 +5,6 @@ const styles = makeStyles({
     root: {
         maxWidth: '10rem',
         maxHeight: '10rem',
-        border: '1px solid',
         borderRadius: 20,
         margin: 'auto',
         '&>img':{
