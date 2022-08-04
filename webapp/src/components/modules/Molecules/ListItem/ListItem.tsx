@@ -45,7 +45,9 @@ export const ListItemModule = () => {
   return (
     <div className={classes.root}> 
       {items && items.length > 0 && items.map(item => (
-        <div className={classes.itemContainer} onClick={() => handleTrack(item)}>
+        <div 
+          className={classes.itemContainer} onClick={() => handleTrack(item)}
+          >
           <div>
             <img className={classes.image} src={item.album.images[0].url}/>
           </div>

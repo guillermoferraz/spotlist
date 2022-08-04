@@ -9,6 +9,7 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   theme: 'Theme',
   logout: 'Logout',
   search: "Search",
+  add: "Add",
   playbackPanel: 'Playback panel',
   spotifyInfo: "In order to provide you with musical content we have obtained the data from Spotify Api Developers. You can continue by pressing the button below.",
   

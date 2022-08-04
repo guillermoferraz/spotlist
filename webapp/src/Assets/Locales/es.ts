@@ -10,6 +10,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   theme: 'Tema',
   logout: 'Cerrar sesión',
   search: "Buscar",
+  add: "Agregar",
   playbackPanel: 'Panel de reproducción',
   title: {
     signin: "Iniciar sesión",

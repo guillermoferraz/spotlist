@@ -56,6 +56,16 @@ const styles = makeStyles({
         float: 'right',
         marginRight: 10
     },
+    addOnList:{
+        float: 'right',
+        marginRight: 20,
+        color: (props: ThemeTypes) => props.colorPalletPrimary,
+        fontWeight: 900,
+        cursor: 'pointer',
+        '&:hover':{
+            color: (props: ThemeTypes) => props.bgSecondary,
+        }
+    }
    
 });
 export default styles;

@@ -9,10 +9,11 @@ import styles from './AlbumList.styles';
 
 export const AlbumList = () => {
   const dispatch = useAppDispatch();
-  const { theme } = useSelector((state: RootState) => state.Settings);
+  const { theme, t } = useSelector((state: RootState) => state.Settings);
   const { album, currentPlayback, selectedData, accessToken } = useSelector((state: RootState) => state.Spotify);
   const { setSelectedData } = SpotifySlice.actions;
   const [current, setCurrent] = useState<any>(null)
+  const [showAddList, setShowAddList] = useState({ id: undefined, enabled: false })
 
   const classes = styles(theme);
 
@@ -48,12 +49,16 @@ export const AlbumList = () => {
       {album && album.tracks && album.tracks.items.length > 0 && album.tracks.items.map(item => (
         <div key={item.id} className={
           current && current?.item?.id === item.id ? classes.equal : classes.containerItem
-          } onClick={() => handleTrack(item)}>
+          } onClick={() => handleTrack(item)}
+          onMouseEnter={() => setShowAddList({ id: item.id, enabled: true })}
+          onMouseLeave={() => setShowAddList({ id: undefined, enabled: false })}
+          >
           <p className={classes.itemText}>
             <span className={classes.trackNumber}>
               {item.track_number}
             </span>
             {item.name}
+            {showAddList.id === item.id && (<span className={classes.addOnList}>+{' '}{t.add}</span>)}
             <span className={classes.duration}>
               {returnDuration(item.duration_ms)}
             </span>
