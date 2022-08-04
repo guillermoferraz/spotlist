@@ -8,8 +8,10 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   language: 'Language',
   theme: 'Theme',
   logout: 'Logout',
+  search: "Search",
   playbackPanel: 'Playback panel',
   spotifyInfo: "In order to provide you with musical content we have obtained the data from Spotify Api Developers. You can continue by pressing the button below.",
+  
   title: {
     signin: "Sign in",
     signup: "Sign up",

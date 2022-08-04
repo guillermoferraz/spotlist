@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { RootState } from 'src/services/Store';
 import { useAppDispatch } from 'src/services/Store';
 import UserSlice, { getUser } from 'src/application/User';
-import SpotifySlice, { getLoginData, searchTracks, getCurrentPlayback, getAlbumByArtist } from 'src/application/Spotify';
+import SpotifySlice, { getLoginData, searchTracks, getCurrentPlayback, getAlbumByArtist, getTopArtists } from 'src/application/Spotify';
 import SettingsSlice from 'src/application/Settings';
 /* Modules */
 import { AccessDenied } from 'src/components/modules/Layouts/AccessDenied';
@@ -32,40 +32,42 @@ export const Home = () => {
 
   const classes = styles(theme);
   const { user, code } = useSelector((state: RootState) => state.User);
-  const { 
-    expiresIn, 
-    refreshToken, 
-    accessToken, 
-    spotifyEnabled, 
-    loading, 
-    searchResponse, 
-    selectedData, 
+  const {
+    expiresIn,
+    refreshToken,
+    accessToken,
+    spotifyEnabled,
+    loading,
+    searchResponse,
+    selectedData,
     albumByArtist,
+    top
   } = useSelector((state: RootState) => state.Spotify);
   const { setSpotCode } = UserSlice.actions;
   const { setSpotifyEnabled, getRefresh } = SpotifySlice.actions;
   const [denied, setDenied] = useState(false);
   const [search, setSearch] = useState<string>('')
-  const [artistId, setArtistId] = useState<string|null|undefined>(null);
+  const [artistId, setArtistId] = useState<string | null | undefined>(null);
+  const [data, setData] = useState<any>(null);
 
   const buttonPlay = (document.querySelector('.rswp__toggle') as HTMLButtonElement);
 
   const checkListening = (title) => {
-    if(title && title === 'Pause'){
-      dispatch(getCurrentPlayback({ accessToken : accessToken}))
+    if (title && title === 'Pause') {
+      dispatch(getCurrentPlayback({ accessToken: accessToken }))
     }
   }
   useEffect(() => {
-    buttonPlay && buttonPlay.addEventListener('click', () => checkListening(buttonPlay.title) )
-  },[buttonPlay])
+    buttonPlay && buttonPlay.addEventListener('click', () => checkListening(buttonPlay.title))
+  }, [buttonPlay])
 
-  
+
   useEffect(() => {
     dispatch(getUser())
     dispatch(setSpotCode())
   }, [])
 
-  useEffect(() => {dispatch(getLoginData(code))},[code])
+  useEffect(() => { dispatch(getLoginData(code)) }, [code])
   useEffect(() => {
     if (expiresIn > 0 && refreshToken) {
       dispatch(setSpotifyEnabled({ value: true }))
@@ -97,41 +99,75 @@ export const Home = () => {
     )
   }
 
-  const handleLayout = () => {
-    if(layout !== 'HOME') dispatch(setLayout({ value: 'HOME' }))
-    if(layout === 'HOME'){
-      dispatch(getCurrentPlayback({ accessToken : accessToken}))
-      setTimeout(() => {dispatch(setLayout({ value:'LISTENING' }))}, 400)
-    } 
+  const handleLayout = (type) => {
+    if (layout !== 'HOME') dispatch(setLayout({ value: 'HOME' }))
+    if (layout === 'HOME' && type === "LISTENING") {
+      dispatch(getCurrentPlayback({ accessToken: accessToken }))
+      setTimeout(() => { dispatch(setLayout({ value: 'LISTENING' })) }, 400)
+    }
+    if (layout === 'HOME' && type === "ALBUM") {
+      setTimeout(() => { dispatch(setLayout({ value: 'ALBUM' })) }, 400)
+    }
   }
 
   const LayoutReturn = (layout) => {
-    switch(layout){
+    switch (layout) {
       case 'LISTENING':
-        return ( <Listening/>)
+        return (<Listening />)
       case 'ALBUM':
-        return (<AlbumModule/>)
+        return (<AlbumModule />)
       default:
-        return (<CardGroup searchResults={albumByArtist.items} />)
+        return (<CardGroup searchResults= {albumByArtist && albumByArtist.items === undefined ? data?.tracks?.items :  albumByArtist.items} />)
     }
   }
 
   useEffect(() => {
-    if(selectedData) setArtistId(selectedData?.artists[0]?.id)
-  },[selectedData])
+    if (selectedData) setArtistId(selectedData?.artists[0]?.id)
+  }, [selectedData])
 
   useEffect(() => {
-    if(artistId) dispatch(getAlbumByArtist({accessToken: accessToken, id: artistId}))
-  },[artistId])
+    if (artistId) dispatch(getAlbumByArtist({ accessToken: accessToken, id: artistId }))
+  }, [artistId])
+
+  useEffect(() => {
+    if(accessToken && accessToken !== undefined) dispatch(getTopArtists({ accessToken: accessToken }))
+  },[accessToken])
+
+  useEffect(() => {
+    if(top && searchResponse && searchResponse.tracks.items.length === 0){
+      setData(top)
+    } else if (top && searchResponse){
+      setData(searchResponse)
+    }
+  },[top, searchResponse])
 
   return (
     <div className={classes.root}>
       <title>{t.appName}&nbsp;|&nbsp;{t.title.home}</title>
       {denied && <AccessDenied />}
       {loading && <Loading />}
-      {searchResponse && searchResponse.tracks && searchResponse.tracks.items.length > 0 && (
+      {data && data.tracks && data.tracks.items.length > 0 && (
         <div className={classes.containerGroup}>
-          <ButtonArrow layout={layout} onClick={() => handleLayout() }/>
+          <div className={classes.containerBtn}>
+            {(layout === "HOME" || layout === "LISTENING") && <ButtonArrow
+              layout={layout}
+              condition="LISTENING"
+              text={{
+                initial: t.title.home,
+                onPage: t.playbackPanel
+              }}
+              onClick={() => handleLayout("LISTENING")}
+            />}
+            {(layout === 'ALBUM' || layout === 'HOME') && <ButtonArrow
+              layout={layout}
+              condition="ALBUM"
+              text={{
+                initial: t.title.home,
+                onPage: "Album"
+              }}
+              onClick={() => handleLayout("ALBUM")}
+            />}
+          </div>
           {LayoutReturn(layout)}
           {PlayerModule()}
         </div>

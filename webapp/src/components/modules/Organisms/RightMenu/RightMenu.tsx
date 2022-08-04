@@ -16,14 +16,14 @@ import styles from './RightMenu.styles';
 export const RightMenu = ({ search, setSearch, handleSearch, onKeyPress }) => {
   const mediaQueryTheme = useTheme();
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
-  const { theme } = useSelector((state: RootState) => state.Settings);
+  const { t, theme } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme);
 
   return (
     <div className={classes.root} tabIndex={0}>
       <div className={classes.containerSearch} onKeyDown={onKeyPress}>
       <Textfield
-        label='Search'
+        label={t.search}
         id="search-input-01"
         name="search"
         error={false}

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 /* Store */
 import { RootState, useAppDispatch } from "src/services/Store";
-import SpotifySlice from 'src/application/Spotify'
+import SpotifySlice, { getAlbum } from 'src/application/Spotify'
+import SettingsSlice from "src/application/Settings";
 
 
 /* Styles */
@@ -12,8 +13,9 @@ export const ListItemModule = () => {
   const { theme } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme);
   const dispatch = useAppDispatch();
-  const { searchResponse } = useSelector((state: RootState) => state.Spotify);
+  const { searchResponse, accessToken } = useSelector((state: RootState) => state.Spotify);
   const { setSelectedData } = SpotifySlice.actions;
+  const { setLayout } = SettingsSlice.actions;
 
   const [items, setItems] = useState<any>([]);
 
@@ -36,6 +38,8 @@ export const ListItemModule = () => {
 
   const handleTrack = (item) => {
     dispatch(setSelectedData({ item: item }))
+    dispatch(getAlbum({ accessToken: accessToken, id: item.album.id }))
+    dispatch(setLayout({value: 'ALBUM'}))
   }
 
   return (

@@ -15,7 +15,8 @@ const styles = makeStyles({
   },
   icon: {
     maxWidth: '1.5rem',
-    maxHeight: '1.5rem'
+    maxHeight: '1.5rem',
+    color: (props: ThemeTypes) => props.colorPalletPrimary
   },
   ['@media (min-width: 560px)']: {
     root: {

@@ -33,6 +33,15 @@ const styles = makeStyles({
             cursor: 'pointer'
         }
     },
+    equal:{
+        padding: '0px 0px 0px 20px',
+        margin: 0,
+        borderBottom: (props:ThemeTypes) => `1px solid ${props.colorPalletPrimary}`,
+        backgroundColor: (props:ThemeTypes) => props.bgHover,
+        '&:hover':{
+            cursor: 'pointer'
+        }
+    },
     itemText:{
         color: (props:ThemeTypes) => props.colorPrimary,
         margin: '5px 0px 5px 0px',

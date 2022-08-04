@@ -22,7 +22,8 @@ export const Card = ({ cover }) => {
   }
   return (
     <div className={classes.root} onClick={() => handleSelected(cover)}>
-      <img src={cover.images[0].url}/>
+      {cover?.images &&  cover?.images[0] && (<img src={cover.images[0].url}/>)}
+      {cover?.album?.images[0] && (<img src={cover?.album?.images[0].url}/>)}
       <p>{cover.name}</p>
     </div>
   )

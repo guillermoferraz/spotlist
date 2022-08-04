@@ -9,6 +9,10 @@ const styles = makeStyles({
     containerGroup: {
         width: '100%',
     },
+    containerBtn:{
+        display: 'flex',
+        justifyContent: 'flex-end'
+    },
     ['@media (min-width: 360px)']: {
         containerGroup: {
             width: '53%'

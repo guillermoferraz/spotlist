@@ -3,7 +3,7 @@ import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 
 const styles = makeStyles({
     root: {
-        minHeight: '72vh',
+        minHeight: '70vh',
         backgroundColor: (props: ThemeTypes) => props.bgSecondary,
         margin: 15,
         borderRadius: 25

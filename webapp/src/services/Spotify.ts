@@ -15,7 +15,7 @@ const SpotifyService = {
   searchTracks: async (data) => {
     spotifyApi.setAccessToken(data.accessToken)
     if (data.search && data.accessToken) {
-      const response = await spotifyApi.searchTracks(data.search);
+      const response = await spotifyApi.searchTracks(data.search, { limit: 50, offset: 1});
       return response.body
 
     }
@@ -28,12 +28,17 @@ const SpotifyService = {
   },
   getAlbumByArtist: async (data) => {
     spotifyApi.setAccessToken(data.accessToken)
-    const response = await spotifyApi.getArtistAlbums(data.id);
+    const response = await spotifyApi.getArtistAlbums(data.id,{ limit: 50 , offset: 1});
     return response.body;
   },
   getAlbum: async (data) => {
     spotifyApi.setAccessToken(data.accessToken)
-    const response = await spotifyApi.getAlbum(data.id);
+    const response = await spotifyApi.getAlbum(data.id, { limit: 50 , offset: 1 });
+    return response.body;
+  },
+  getTopArtist: async(data) => {
+    spotifyApi.setAccessToken(data.accessToken)
+    const response = await spotifyApi.searchTracks('amy lee', { limit: 50, offset: 1});
     return response.body;
   }
 };

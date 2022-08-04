@@ -13,12 +13,10 @@ export const AlbumModule = () => {
   const { album } = useSelector((state: RootState) => state.Spotify);
   const classes = styles(theme);
 
-  console.log('album:', album)
-
   const returnName = (artists) => {
     if (artists) {
       return artists.map(artist => (
-        <>{artist.name}{''}{artists.length > 1 ? '/' : ''}</>
+        <>{artist.name}{''}{artists.length > 1 ? '/' : ''}{' '}</>
       ))
     }
   }
@@ -27,7 +25,7 @@ export const AlbumModule = () => {
     <div className={classes.root}>
       {album &&
         <div className={classes.content}>
-          <h4 className={classes.artistName}>{returnName(album.artists)}</h4>
+          <h4 className={classes.artistName}>{returnName(album.artists)}{album.name}</h4>
           <div className={classes.containerFlex}>
             <div className={classes.conteinerImg}>
               <img src={album?.images[0]?.url} />

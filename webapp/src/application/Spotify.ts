@@ -52,6 +52,14 @@ export const getAlbum = createAsyncThunk('getAlbum', async (data: { accessToken:
     console.error(err)
   }
 })
+export const getTopArtists = createAsyncThunk('getTopArtists', async (data: { accessToken: string }) => {
+  try {
+    const response = await SpofityService.getTopArtist(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 const SpotifySlice = createSlice({
   name: 'Spotify',
@@ -71,6 +79,7 @@ const SpotifySlice = createSlice({
     albumByArtist: {items: undefined},
     album: {
       artists: undefined,
+      name: undefined,
       images: [
         {url: undefined}
       ], 
@@ -85,7 +94,8 @@ const SpotifySlice = createSlice({
           }
         ] 
       } 
-    }
+    },
+    top: { tracks: { items: [] }}
   },
   reducers: {
     setSpotifyEnabled: (state, { payload }) => {
@@ -161,6 +171,13 @@ const SpotifySlice = createSlice({
     })
     .addCase(getAlbum.fulfilled, (state, { payload }) => {
       state.album = payload
+    })
+    .addCase(getTopArtists.fulfilled, (state, { payload }) => {
+      state.top = payload;
+      state.loading = false;
+    })
+    .addCase(getTopArtists.pending,(state) => {
+      state.loading = true;
     })
   }
 });

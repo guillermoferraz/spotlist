@@ -8,13 +8,13 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import styles from './ButtonArrow.styles';
 
-export const ButtonArrow = ({layout, onClick}) => {
+export const ButtonArrow = ({layout, onClick, condition, text}) => {
   const { t, theme } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme);
   return (
     <div className={classes.root}>
-     {layout === 'LISTENING' ? (<NavigateBeforeIcon onClick={onClick}/>) : (<NavigateNextIcon onClick={onClick}/>)}
-     <span>{layout === 'LISTENING' ? t.title.home : t.playbackPanel}</span>
+     {layout === condition ? (<NavigateBeforeIcon onClick={onClick}/>) : (<NavigateNextIcon onClick={onClick}/>)}
+     <span>{layout === condition ? text.initial : text.onPage}</span>
     </div>
   )
 };
