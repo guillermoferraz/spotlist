@@ -37,17 +37,30 @@ const styles = makeStyles({
             display: 'none',
             margin: 0,
             padding: 0,
-            '&>svg': {
+            '&>:nth-child(1)': {
                 width: '1.2rem',
                 height: '1.2rem',
-                color: (props: ThemeTypes) => props.errorPrimary
+                color: (props: ThemeTypes) => props.errorPrimary,
+                marginRight: 5,
+                '&:hover':{
+                    opacity: .75
+                }
+
+            },
+            '&>:nth-child(2)': {
+                width: '1.2rem',
+                height: '1.2rem',
+                color: (props: ThemeTypes) => props.colorPalletPrimary,
+                '&:hover':{
+                    opacity: .75
+                }
             }
         },
         '&:hover': {
             backgroundColor: (props: ThemeTypes) => props.bgHover,
             cursor: 'pointer',
             '&>:nth-child(2)': {
-                display: 'inline'
+                display: 'flex'
             }
         }
     },

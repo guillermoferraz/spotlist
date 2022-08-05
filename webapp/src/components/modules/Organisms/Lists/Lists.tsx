@@ -82,6 +82,7 @@ export const ListsModule = () => {
             error={false}
             onChange={handleChange}
             entry
+            type="CREATE"
             button={(
               <ButtonModule
                 text={t.create}

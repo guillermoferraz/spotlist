@@ -17,6 +17,7 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
   dontPlaylists: "You don't have any playlists yet",
   spotifyInfo: "In order to provide you with musical content we have obtained the data from Spotify Api Developers. You can continue by pressing the button below.",
   confirmDelete: 'Are you sure you want to delete this list?',
+  edit: 'Edit',
   title: {
     signin: "Sign in",
     signup: "Sign up",
@@ -45,7 +46,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     password: 'The password must have at least 8 characters and must contain at least one uppercase, one lowercase and one special character (symbol)',
     confPassword: 'Password and confirmation do not match',
     saveList: 'An error occurred while saving your list, please try again',
-    removeList: 'An error occurred while deleting your list, please try again'
+    removeList: 'An error occurred while deleting your list, please try again',
+    updateList: 'There was an error updating your list, please try again'
   },
   alerts:{
     userNotFound: 'User not found',
@@ -54,7 +56,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     emailAlreadyExist: "The email entered is already being used",
     successRegister: "Successful registration",
     newList: 'New list added successfully',
-    removeList: 'List removed successfully'
+    removeList: 'List removed successfully',
+    updateList: 'List updated successfully'
   },
   wait: 'Please wait ...',
   accessDenied: 'Access denied',

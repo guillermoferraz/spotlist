@@ -11,7 +11,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import styles from './Textfield.styles';
 
-export const Textfield = ({ label, id, error, helperText, autocomplete, type, onChange, name, icon }: TextfieldTypes) => {
+export const Textfield = ({ label, id, error, helperText, autocomplete, type, onChange, name, icon, value }: TextfieldTypes) => {
   const { theme } = useSelector((state: RootState) => state.Settings);
   const addOnTheme = { ...theme, error: error }
   const classes = styles(addOnTheme);
@@ -29,6 +29,7 @@ export const Textfield = ({ label, id, error, helperText, autocomplete, type, on
         autoComplete={autocomplete ? 'on' : 'off'}
         type={type ? type : 'text'}
         onChange={onChange}
+        value={value}
         InputProps={{
           endAdornment: <InputAdornment position="end">{icon && <IconButton>{icon}</IconButton>}</InputAdornment>
         }}

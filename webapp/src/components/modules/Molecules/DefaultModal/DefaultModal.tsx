@@ -19,9 +19,11 @@ interface ModalTypes {
   onChange: (event: string) => void;
   entry?: boolean;
   title?: string;
+  type: string;
+  value?: string;
 }
 
-export const DefaultModal = ({ open, setOpen, button, error, onChange, entry, title}: ModalTypes) => {
+export const DefaultModal = ({ open, setOpen, button, error, onChange, entry, title, type, value}: ModalTypes) => {
   const { theme, t } = useSelector((state: RootState) => state.Settings);
   const classes = styles(theme);
   const themeMaterial = useTheme();
@@ -35,21 +37,40 @@ export const DefaultModal = ({ open, setOpen, button, error, onChange, entry, ti
         aria-labelledby="responsive-dialog-add-list"
         className={classes.dialog}
       >
-        <div className={classes.container}>
-          {title && <h4 className={classes.title}>{title}</h4>}
-          {entry && <Textfield
-            label={t.labels.name}
-            id="list-name-entry-01"
-            error={error}
-            helperText={t.errors.required}
-            autocomplete={false}
-            type="text"
-            onChange={(event) => onChange(event?.target.value)}
-            name="list-name-entry-01"
-          />}
-          {button && <div className={classes.containerBtn}>{button}</div>}
-        </div>
+        {(type === 'CREATE' || type === 'DELETE') && (
+           <div className={classes.container}>
+           {title && <h4 className={classes.title}>{title}</h4>}
+           {entry && <Textfield
+             label={t.labels.name}
+             id="list-name-entry-01"
+             error={error}
+             helperText={t.errors.required}
+             autocomplete={false}
+             type="text"
+             onChange={(event) => onChange(event?.target.value)}
+             name="list-name-entry-01"
+           />}
+           {button && <div className={classes.containerBtn}>{button}</div>}
+         </div>
+        )}
+        {type === 'EDIT' && (
+           <div className={classes.container}>
+           {title && <h4 className={classes.title}>{title}</h4>}
+           {entry && <Textfield
+             label={t.labels.name}
+             id="list-name-entry-edit-01"
+             error={error}
+             helperText={t.errors.required}
+             autocomplete={false}
+             type="text"
+             value={value}
+             onChange={(event) => onChange(event?.target.value)}
+             name="list-name-entry-edit-01"
+           />}
+           {button && <div className={classes.containerBtn}>{button}</div>}
+         </div>
+        )}
       </Dialog>
     </div>
-  )
+   )
 }

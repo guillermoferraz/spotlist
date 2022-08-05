@@ -69,4 +69,19 @@ export default class ListsServices {
       console.error(err)
     }
   }
+
+  public async updateList (data): Promise<any>{
+    try {
+      const { user, id, name } = data;
+      const existUser = await this.userModel.findOne({ _id: user.id });
+      if(existUser){
+        await this.listsModel.findOneAndUpdate({ _id: id }, {$set: { "name": name }});
+        return 'Updated successfully';
+      } else {
+        return 'Error'
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
 };

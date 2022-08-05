@@ -25,6 +25,15 @@ const ListsService = {
       }
     });
     return response.data;
+  },
+  updateList: async (listData) => {
+    const { name } = listData;
+    const response = await axios.patch(`${env.apiUri}/lists/update/${listData._id}`, {name},{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
   }
 };
 export default ListsService;

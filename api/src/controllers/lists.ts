@@ -36,6 +36,15 @@ const ListControllers = (app: Router) => {
     } else {
       res.json({ access: 'Denied' })
     }
+  });
+  router.patch('/update/:id' ,async (req: Request, res: Response, next: NextFunction) => {
+    const authorization = verifyAccess(req.headers['authorization']);
+    if(authorization.access){
+      const response = await ListService.updateList({user: authorization?.id, id: req.params.id, name: req.body.name});
+      res.json(response)
+    } else {
+      res.json({ access: 'Denied' })
+    }
   })
 };
 export default ListControllers;

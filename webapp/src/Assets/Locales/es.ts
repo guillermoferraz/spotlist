@@ -14,6 +14,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   lists: 'Listas',
   createList: 'Crear nueva lista',
   create: 'Crear',
+  edit: 'Editar',
   dontPlaylists: "Aún no tienes ninguna lista de reproducción",
   playbackPanel: 'Panel de reproducción',
   confirmDelete: '¿Está seguro de que desea eliminar esta lista?',
@@ -45,7 +46,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     password: 'La contraseña debe tener como minimo 8 caracteres y debe contener al menos una mayúscula , una minúscula y un carácter especial(simbolo)',
     confPassword: 'La contraseña y la confirmación no coinciden',
     saveList: 'Ah ocurrido un error al guardar su lista, por favor vuelva  a intentarlo',
-    removeList: 'Ocurrió un error al eliminar su lista, intente nuevamente'
+    removeList: 'Ocurrió un error al eliminar su lista, intente nuevamente',
+    updateList: 'Ah ocurrido un error al actualizar su lista, por favor vuelva a intentarlo'
   },
   alerts:{
     userNotFound: 'Usuario no encontrado',
@@ -54,7 +56,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     emailAlreadyExist: "El correo electrónico ingresado ya esta siendo utilizado",
     successRegister: "Registro exitoso",
     newList: 'Nueva lista agregada con exito',
-    removeList: 'Lista eliminada correctamente'
+    removeList: 'Lista eliminada correctamente',
+    updateList: 'Su lista se ha actualizado exitosamente'
   },
   wait: 'Por favor espere ...',
   accessDenied: 'Acceso denegado',
