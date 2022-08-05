@@ -17,6 +17,7 @@ import { Player } from 'src/components/modules/Molecules/Player';
 import { Listening } from 'src/components/modules/Organisms/Listening';
 import { ButtonArrow } from 'src/components/modules/Atoms/ButtonArrow';
 import { AlbumModule } from 'src/components/modules/Organisms/Album';
+import { ListsModule } from 'src/components/modules/Organisms/Lists';
 /* Styles */
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -108,6 +109,9 @@ export const Home = () => {
     if (layout === 'HOME' && type === "ALBUM") {
       setTimeout(() => { dispatch(setLayout({ value: 'ALBUM' })) }, 400)
     }
+    if (layout === 'HOME' && type === "LISTS") {
+      setTimeout(() => { dispatch(setLayout({ value: 'LISTS' })) }, 400)
+    }
   }
 
   const LayoutReturn = (layout) => {
@@ -116,6 +120,8 @@ export const Home = () => {
         return (<Listening />)
       case 'ALBUM':
         return (<AlbumModule />)
+      case 'LISTS':
+        return (<ListsModule/>)
       default:
         return (<CardGroup searchResults= {albumByArtist && albumByArtist.items === undefined ? data?.tracks?.items :  albumByArtist.items} />)
     }
@@ -149,6 +155,15 @@ export const Home = () => {
       {data && data.tracks && data.tracks.items.length > 0 && (
         <div className={classes.containerGroup}>
           <div className={classes.containerBtn}>
+            <ButtonArrow
+              layout={layout}
+              condition="LISTS"
+              text={{
+                initial: t.title.home,
+                onPage: t.lists
+              }}
+              onClick={() => handleLayout("LISTS")}
+            />
             {(layout === "HOME" || layout === "LISTENING") && <ButtonArrow
               layout={layout}
               condition="LISTENING"

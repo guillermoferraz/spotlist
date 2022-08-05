@@ -10,9 +10,7 @@ export default class UserServices {
   }
   public async getUser(user): Promise<any> {
     try {
-        console.log('USER ON SERVICE:', user)
         const userData = await this.userModel.findOne({ id: user.id })
-        console.log('USER DATA:', userData)
         if(userData){
           const response = { email: userData.email, id: userData.id, access: 'Authorized' }
           return response

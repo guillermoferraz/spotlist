@@ -25,7 +25,7 @@ const styles = makeStyles({
         },
     },
     containerItem:{
-        padding: '0px 0px 0px 20px',
+        padding: '5px 0px 5px 20px',
         margin: 0,
         borderBottom: (props:ThemeTypes) => `1px solid ${props.colorPalletPrimary}`,
         '&:hover':{
@@ -62,8 +62,16 @@ const styles = makeStyles({
         color: (props: ThemeTypes) => props.colorPalletPrimary,
         fontWeight: 900,
         cursor: 'pointer',
+        position:'relative',
+        zIndex: 5,
+        marginTop: -3,
+        padding: 2,
+        borderRadius: 15,
+        border: (props: ThemeTypes) => `1px solid  ${props.colorPalletPrimary}`,
+        backgroundColor: (props: ThemeTypes) => props.bgSecondary,
         '&:hover':{
-            color: (props: ThemeTypes) => props.bgSecondary,
+            color: (props: ThemeTypes) => props.colorPrimary,
+            backgroundColor: (props: ThemeTypes) => props.colorPalletPrimary,
         }
     }
    
