@@ -60,6 +60,14 @@ export const getTopArtists = createAsyncThunk('getTopArtists', async (data: { ac
     console.error(err)
   }
 })
+export const getAudioFeatures = createAsyncThunk('getAudioFEaturesForTracks' , async (data: { accessToken: string, tracks: string[] }) => {
+  try {
+    const response = await SpofityService.getAudioFeatures(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 const SpotifySlice = createSlice({
   name: 'Spotify',
@@ -95,7 +103,8 @@ const SpotifySlice = createSlice({
         ] 
       } 
     },
-    top: { tracks: { items: [] }}
+    top: { tracks: { items: [] }},
+    listTracks: undefined
   },
   reducers: {
     setSpotifyEnabled: (state, { payload }) => {
@@ -178,6 +187,13 @@ const SpotifySlice = createSlice({
     })
     .addCase(getTopArtists.pending,(state) => {
       state.loading = true;
+    })
+    .addCase(getAudioFeatures.fulfilled, (state, { payload }) => {
+      state.listTracks = payload;
+      state.loading = false
+    })
+    .addCase(getAudioFeatures.pending, (state) => {
+      state.loading = true
     })
   }
 });

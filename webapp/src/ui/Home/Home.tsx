@@ -155,7 +155,7 @@ export const Home = () => {
       {data && data.tracks && data.tracks.items.length > 0 && (
         <div className={classes.containerGroup}>
           <div className={classes.containerBtn}>
-            <ButtonArrow
+            {layout !== 'LISTENING' && layout !== 'ALBUM' && <ButtonArrow
               layout={layout}
               condition="LISTS"
               text={{
@@ -163,7 +163,7 @@ export const Home = () => {
                 onPage: t.lists
               }}
               onClick={() => handleLayout("LISTS")}
-            />
+            />}
             {(layout === "HOME" || layout === "LISTENING") && <ButtonArrow
               layout={layout}
               condition="LISTENING"

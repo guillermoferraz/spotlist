@@ -34,6 +34,22 @@ const ListsService = {
       }
     });
     return response.data;
+  },
+  addTrack: async (data) => {
+    const response = await axios.patch(`${env.apiUri}/lists/add/track`, {data},{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  },
+  getTrackList: async (id) => {
+    const response = await axios.get(`${env.apiUri}/lists/track/list/${id}`,{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
   }
 };
 export default ListsService;

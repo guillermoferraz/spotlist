@@ -46,5 +46,23 @@ const ListControllers = (app: Router) => {
       res.json({ access: 'Denied' })
     }
   })
+  router.patch('/add/track' ,async (req: Request, res: Response, next: NextFunction) => {
+    const authorization = verifyAccess(req.headers['authorization']);
+    if(authorization.access){
+      const response = await ListService.addTrack({user: authorization?.id, trackId: req.body.data.trackId, listId: req.body.data.listId, item: req.body.data.item});
+      res.json(response)
+    } else {
+      res.json({ access: 'Denied' })
+    }
+  })
+  router.get('/track/list/:id' ,async (req: Request, res: Response, next: NextFunction) => {
+    const authorization = verifyAccess(req.headers['authorization']);
+    if(authorization.access){
+      const response = await ListService.getTrackList(authorization?.id, req.params.id);
+      res.json(response)
+    } else {
+      res.json({ access: 'Denied' })
+    }
+  })
 };
 export default ListControllers;

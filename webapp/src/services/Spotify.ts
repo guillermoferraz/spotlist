@@ -40,6 +40,11 @@ const SpotifyService = {
     spotifyApi.setAccessToken(data.accessToken)
     const response = await spotifyApi.searchTracks('amy lee', { limit: 50, offset: 1});
     return response.body;
+  },
+  getAudioFeatures: async (data) => {
+    spotifyApi.setAccessToken(data.accessToken);
+    const response = await spotifyApi.getAudioFeaturesForTracks('');
+    return response.body;
   }
 };
 export default SpotifyService;

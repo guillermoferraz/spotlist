@@ -6,6 +6,7 @@ class Lists {
 
     @prop({ required: true })
     userId: string
+
 };
 const ListsModel = getModelForClass(Lists);
 export default ListsModel;

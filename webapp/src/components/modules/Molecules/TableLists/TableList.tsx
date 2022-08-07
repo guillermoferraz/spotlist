@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 /* Store */
 import { RootState, useAppDispatch } from "src/services/Store";
-import ListsSlice, { deleteList, getLists, updateList } from "src/application/Lists";
+import ListsSlice, { deleteList, getLists, updateList, getTrackList } from "src/application/Lists";
+import { getAudioFeatures } from "src/application/Spotify";
 
 /* Modules */
 import { DefaultModal } from "../DefaultModal";
@@ -20,7 +21,8 @@ export const TableList = () => {
   const classes = styles(theme);
   const dispatch = useAppDispatch();
   const { lists } = useSelector((state: RootState) => state.Lists);
-  const { deleteResponse, loading, updateResponse } = useSelector((state: RootState) => state.Lists);
+  const { deleteResponse, loading, updateResponse ,trackList } = useSelector((state: RootState) => state.Lists);
+  const { listTracks, accessToken } = useSelector((state: RootState) => state.Spotify);
   const { setDeleteResponse, setUpdateResponse } = ListsSlice.actions;
 
   const [openDelete, setOpenDelete] = useState(false);
@@ -85,6 +87,15 @@ export const TableList = () => {
     setEditValues({ ...editValues, name: value })
   }
 
+  const handleGetTrackList = (id) => {
+    dispatch(getTrackList(id))
+  }
+
+
+  useEffect(() => {
+    if(trackList && trackList.tracks.length > 0) dispatch(getAudioFeatures({ accessToken: accessToken, tracks: trackList.tracks }))
+  },[trackList])
+
   return (
     <div className={classes.root}>
       {loading && <Loading/>}
@@ -137,7 +148,7 @@ export const TableList = () => {
 
       {lists && lists.map(list => (
         <div key={list._id} className={classes.containerItem}>
-          <p onClick={() => console.log('selected data')}>{list.name}</p>
+          <p onClick={() => handleGetTrackList(list._id) }>{list.name}</p>
           <p>
               <DeleteForeverIcon onClick={() => handleOpenDelete(list._id)}/>
               <ModeEditIcon onClick={()=> handleOpenEdit(list)}/>

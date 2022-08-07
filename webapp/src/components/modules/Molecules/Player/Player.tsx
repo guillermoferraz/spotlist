@@ -15,11 +15,16 @@ export const Player = () => {
 
   const [play, setPlay] = useState(true);
   const [selectedTrack, setSelectedTrack] = useState(undefined)
+  const [audioData, setAudioData] = useState<any>(null)
 
   useEffect(() => {
-     setSelectedTrack(selectedData.uri)
-     setPlay(true)
+    setAudioData(selectedData)
   },[selectedData])
+  
+  useEffect(() => {
+      if(audioData && audioData.uri) setSelectedTrack(audioData.uri)
+      setPlay(true)
+  },[audioData])
 
 
   const RenderPlayer = (audio) => {
@@ -32,7 +37,7 @@ export const Player = () => {
           if (!state.isPlaying) setPlay(false)
         }}
         play={play}
-        uris={[audio]}
+        uris={Array.isArray(audio) ? [...audio] : [audio]}
         />
       )
     } else {

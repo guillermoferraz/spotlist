@@ -27,6 +27,8 @@ const styles = makeStyles({
     containerItem:{
         padding: '5px 0px 5px 20px',
         margin: 0,
+        display: 'flex',
+        alignItems: 'center',
         borderBottom: (props:ThemeTypes) => `1px solid ${props.colorPalletPrimary}`,
         '&:hover':{
             backgroundColor: (props:ThemeTypes) => props.bgHover,
@@ -36,6 +38,7 @@ const styles = makeStyles({
     equal:{
         padding: '0px 0px 0px 20px',
         margin: 0,
+        display: 'flex',
         borderBottom: (props:ThemeTypes) => `1px solid ${props.colorPalletPrimary}`,
         backgroundColor: (props:ThemeTypes) => props.bgHover,
         '&:hover':{
@@ -46,29 +49,33 @@ const styles = makeStyles({
         color: (props:ThemeTypes) => props.colorPrimary,
         margin: '5px 0px 5px 0px',
         fontSize: '0.75rem',
-    },
+        width: '100%'
+     },
     trackNumber:{
         color: (props: ThemeTypes) => props.colorPalletPrimary,
         marginRight: 15,
         textAlign: 'right'
     },
     duration: {
-        float: 'right',
-        marginRight: 10
+        color: (props:ThemeTypes) => props.colorPrimary,
+        margin: '5px 20px 5px 0px',
+        fontSize: '0.75rem',
     },
     addOnList:{
-        float: 'right',
-        marginRight: 20,
         color: (props: ThemeTypes) => props.colorPalletPrimary,
         fontWeight: 900,
         cursor: 'pointer',
-        position:'relative',
+        position:'absolute',
         zIndex: 5,
-        marginTop: -3,
-        padding: 2,
         borderRadius: 15,
+        width: '3rem',
+        height: '1rem',
+        marginLeft: -80,
         border: (props: ThemeTypes) => `1px solid  ${props.colorPalletPrimary}`,
         backgroundColor: (props: ThemeTypes) => props.bgSecondary,
+        fontSize: '0.8rem',
+        padding: 0,
+        margin: 0,
         '&:hover':{
             color: (props: ThemeTypes) => props.colorPrimary,
             backgroundColor: (props: ThemeTypes) => props.colorPalletPrimary,

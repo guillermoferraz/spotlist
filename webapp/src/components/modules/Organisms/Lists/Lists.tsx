@@ -18,7 +18,7 @@ export const ListsModule = () => {
   const dispatch = useAppDispatch();
   const { theme, t } = useSelector((state: RootState) => state.Settings);
   const { accessToken } = useSelector((state: RootState) => state.Spotify);
-  const { saveListResponse, lists } = useSelector((state: RootState) => state.Lists);
+  const { saveListResponse, lists, trackList } = useSelector((state: RootState) => state.Lists);
   const { setSaveResponse } = ListsSlice.actions;
   const classes = styles(theme);
 
@@ -27,7 +27,6 @@ export const ListsModule = () => {
   const [error, setError] = useState(false);
   const [openAlert, setOpenAlert] = useState({ message: '', type : '', open: false })
 
-  const selectedList = undefined
 
   const handleCreate = () => {
     setOpenModal(!openModal)
@@ -104,7 +103,7 @@ export const ListsModule = () => {
         ) }
       </div>
       <div className={classes.containerRight}>
-      { selectedList && (
+      { trackList && (
         <TrackList/>
       )}
       </div>

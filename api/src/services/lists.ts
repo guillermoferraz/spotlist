@@ -2,15 +2,20 @@
 /* Models */
 import UserModel from '../db/models/user';
 import ListsModel from '../db/models/lists';
+import TrackModel from '../db/models/tracks';
+import { set } from 'mongoose';
 export default class ListsServices {
   userModel;
   listsModel;
+  trackModel;
   constructor(
     userModel = UserModel,
-    listsModel = ListsModel
+    listsModel = ListsModel,
+    trackModel = TrackModel
   ) {
     this.userModel = userModel
     this.listsModel = listsModel
+    this.trackModel = trackModel
   }
   public async saveList(user, data): Promise<any> {
     try {
@@ -77,6 +82,45 @@ export default class ListsServices {
       if(existUser){
         await this.listsModel.findOneAndUpdate({ _id: id }, {$set: { "name": name }});
         return 'Updated successfully';
+      } else {
+        return 'Error'
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  
+  public async addTrack (data): Promise<any>{
+    try {
+      const { user, trackId, listId, item } = data;
+      const existUser = await this.userModel.findOne({ _id: user.id });
+      if(existUser){
+        const existTracksList = await this.trackModel.findOne({ listId: listId, userId: user.id });
+        if(existTracksList){
+          await this.trackModel.findOneAndUpdate(
+            { listId: listId, userId: user.id }, 
+            { $set: { "tracks": [...existTracksList.tracks, "spotify:track:" + trackId], "userId": existTracksList.userId, "listId": existTracksList.listId, "items": [...existTracksList.items, JSON.stringify(item)] }
+          })
+          return 'Track added successfully';
+        } else {
+          const newTrack = new TrackModel({ tracks: "spotify:track:" + trackId, listId: listId, userId: user.id, items: [JSON.stringify(item)] });
+          await newTrack.save();
+          return 'Track added successfully';
+        }
+      } else {
+        return 'Error'
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  
+  public async getTrackList (user, id): Promise<any>{
+    try {
+      const existUser = await this.userModel.findOne({ _id: user.id });
+      if(existUser){
+        const trackList = await this.trackModel.findOne({ listId: id, userId: user.id })
+        return trackList
       } else {
         return 'Error'
       }

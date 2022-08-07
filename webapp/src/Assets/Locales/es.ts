@@ -18,6 +18,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   dontPlaylists: "Aún no tienes ninguna lista de reproducción",
   playbackPanel: 'Panel de reproducción',
   confirmDelete: '¿Está seguro de que desea eliminar esta lista?',
+  selectList: 'Selecciona una lista para agregar la canción',
   title: {
     signin: "Iniciar sesión",
     signup: "Regístrate",
@@ -47,7 +48,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     confPassword: 'La contraseña y la confirmación no coinciden',
     saveList: 'Ah ocurrido un error al guardar su lista, por favor vuelva  a intentarlo',
     removeList: 'Ocurrió un error al eliminar su lista, intente nuevamente',
-    updateList: 'Ah ocurrido un error al actualizar su lista, por favor vuelva a intentarlo'
+    updateList: 'Ah ocurrido un error al actualizar su lista, por favor vuelva a intentarlo',
+    addTrack: 'Ah ocurrido un error al agregar su track, por favor vuelva a intentarlo',
   },
   alerts:{
     userNotFound: 'Usuario no encontrado',
@@ -57,7 +59,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     successRegister: "Registro exitoso",
     newList: 'Nueva lista agregada con exito',
     removeList: 'Lista eliminada correctamente',
-    updateList: 'Su lista se ha actualizado exitosamente'
+    updateList: 'Su lista se ha actualizado exitosamente',
+    addTrack: 'Su track se ha agregado exitosamente'
   },
   wait: 'Por favor espere ...',
   accessDenied: 'Acceso denegado',

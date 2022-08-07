@@ -35,6 +35,22 @@ export const updateList = createAsyncThunk('/list/update/:id', async (listData: 
     console.error(err)
   }
 })
+export const addTrack = createAsyncThunk('/list/add/track', async (data: { trackId: string|undefined, listId: string|undefined }) => {
+  try {
+    const response = await ListsService.addTrack(data);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
+});
+export const getTrackList = createAsyncThunk('/list/track/list/:id', async (id:string ) => {
+  try {
+    const response = await ListsService.getTrackList(id);
+    return response;
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 const ListsSlice = createSlice({
   name: 'Lists',
@@ -43,7 +59,9 @@ const ListsSlice = createSlice({
     loading: false,
     lists: [ { _id: undefined, name: undefined } ],
     deleteResponse: undefined,
-    updateResponse: undefined
+    updateResponse: undefined,
+    addTrackResponse: undefined,
+    trackList: {tracks: [], items: [], _id: undefined}
   },
   reducers: {
     setSaveResponse: (state, { payload }) => {
@@ -54,6 +72,9 @@ const ListsSlice = createSlice({
     },
     setUpdateResponse: (state, { payload }) => {
       state.updateResponse = payload.value
+    },
+    setAddTrackResponse: (state, { payload }) => {
+      state.addTrackResponse = payload.value
     }
   },
   extraReducers: (builder) => {
@@ -84,6 +105,20 @@ const ListsSlice = createSlice({
     })
     .addCase(updateList.pending, (state) => {
       state.loading = true
+    })
+    .addCase(addTrack.fulfilled, (state, { payload}) => {
+      state.addTrackResponse = payload;
+      state.loading = false
+    })
+    .addCase(addTrack.pending, (state) => {
+      state.loading = true
+    })
+    .addCase(getTrackList.fulfilled, (state, { payload } ) => {
+      state.trackList = payload;
+      state.loading = false;
+    })
+    .addCase(getTrackList.pending, (state, { payload } ) => {
+      state.loading = true;
     })
   },
 });
