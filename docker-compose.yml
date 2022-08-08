@@ -10,7 +10,7 @@ services:
     <<: *node
     container_name: rv-deliver-app-fullstack-api
     ports:
-      - "8000:8000"
+      - "9000:9000"
     volumes:
       - "${PWD}/api:/opt/app"
     entrypoint: ["yarn", "start"]
@@ -19,7 +19,7 @@ services:
     <<: *node
     container_name: rv-deliver-app-fullstack-webapp
     ports:
-      - "3000:3000"
+      - "3010:3010"
     volumes:
       - "${PWD}/webapp:/opt/app"
     entrypoint: [ "yarn", "start" ]
