@@ -50,6 +50,7 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     removeList: 'Ocurrió un error al eliminar su lista, intente nuevamente',
     updateList: 'Ah ocurrido un error al actualizar su lista, por favor vuelva a intentarlo',
     addTrack: 'Ah ocurrido un error al agregar su track, por favor vuelva a intentarlo',
+    deleteTrack: 'Ah ocurrido un error al eliminar su track, por favor vuelva a intentarlo'
   },
   alerts:{
     userNotFound: 'Usuario no encontrado',
@@ -60,7 +61,8 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     newList: 'Nueva lista agregada con exito',
     removeList: 'Lista eliminada correctamente',
     updateList: 'Su lista se ha actualizado exitosamente',
-    addTrack: 'Su track se ha agregado exitosamente'
+    addTrack: 'Su track se ha agregado exitosamente',
+    deleteTrack: 'Su track se a eliminado exitosamente'
   },
   wait: 'Por favor espere ...',
   accessDenied: 'Acceso denegado',

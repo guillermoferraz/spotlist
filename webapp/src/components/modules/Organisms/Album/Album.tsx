@@ -1,16 +1,21 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 
 /* Styles */
 import styles from './Album.styles';
 /* Store */
-import { RootState } from "src/services/Store"
+import { RootState, useAppDispatch } from "src/services/Store"
 
 /* Modules */
 import { AlbumList } from "../../Molecules/AlbumList";
+import { getAlbum } from "src/application/Spotify";
 
 export const AlbumModule = () => {
+  const dispatch = useAppDispatch();
   const { theme } = useSelector((state: RootState) => state.Settings);
-  const { album } = useSelector((state: RootState) => state.Spotify);
+  const { album, selectedData, accessToken, currentPlayback } = useSelector((state: RootState) => state.Spotify);
+  const [albumData, setAlbumData] = useState<any>(null);
+
   const classes = styles(theme);
 
   const returnName = (artists) => {
@@ -20,6 +25,16 @@ export const AlbumModule = () => {
       ))
     }
   }
+
+  useEffect(() => {
+    setAlbumData(selectedData)
+  },[selectedData, currentPlayback])
+
+  useEffect(() => {
+   if(albumData && albumData.album) {
+     dispatch(getAlbum({ accessToken: accessToken, id: albumData.album.id }))
+   } 
+ },[albumData])
 
   return (
     <div className={classes.root}>

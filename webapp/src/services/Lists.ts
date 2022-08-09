@@ -50,6 +50,14 @@ const ListsService = {
       }
     });
     return response.data;
+  },
+  deleteTrack: async (id) => {
+    const response = await axios.delete(`${env.apiUri}/lists/track/delete/${id}`,{
+      headers:{
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
   }
 };
 export default ListsService;

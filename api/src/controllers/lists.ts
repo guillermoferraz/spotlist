@@ -63,6 +63,15 @@ const ListControllers = (app: Router) => {
     } else {
       res.json({ access: 'Denied' })
     }
+  });
+  router.delete('/track/delete/:id' ,async (req: Request, res: Response, next: NextFunction) => {
+    const authorization = verifyAccess(req.headers['authorization']);
+    if(authorization.access){
+      const response = await ListService.deleteTrack(authorization?.id, req.params.id);
+      res.json(response)
+    } else {
+      res.json({ access: 'Denied' })
+    }
   })
 };
 export default ListControllers;

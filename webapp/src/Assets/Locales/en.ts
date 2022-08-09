@@ -49,7 +49,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     saveList: 'An error occurred while saving your list, please try again',
     removeList: 'An error occurred while deleting your list, please try again',
     updateList: 'There was an error updating your list, please try again',
-    addTrack: 'There was an error adding your track, please try again'
+    addTrack: 'There was an error adding your track, please try again',
+    deleteTrack: 'There was an error deleting your track, please try again'
   },
   alerts:{
     userNotFound: 'User not found',
@@ -60,7 +61,8 @@ const en: { [key: string]: string | { [key: string]: string } | any } = {
     newList: 'New list added successfully',
     removeList: 'List removed successfully',
     updateList: 'List updated successfully',
-    addTrack: 'Your track has been successfully added'
+    addTrack: 'Your track has been successfully added',
+    deleteTrack: 'Your track has been successfully deleted'
   },
   wait: 'Please wait ...',
   accessDenied: 'Access denied',

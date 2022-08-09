@@ -26,9 +26,25 @@ const styles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         borderBottom: (props:ThemeTypes) => `1px solid ${props.colorPalletPrimary}`,
+        '&>div':{
+            '&>:nth-child(1)':{
+                color: (props: ThemeTypes) => props.errorPrimary,
+                margin: 0,
+                padding: 0,
+                marginRight: 15,
+                display: 'none',
+                position: 'relative',
+                zIndex: 10
+            }
+        },
         '&:hover':{
             backgroundColor: (props:ThemeTypes) => props.bgHover,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            '&>div':{
+                '&>:nth-child(1)':{
+                    display: 'inline'
+                }
+            },
         }
     },
     itemText:{

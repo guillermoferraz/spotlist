@@ -128,4 +128,32 @@ export default class ListsServices {
       console.error(err)
     }
   }
+  public async deleteTrack (user, id): Promise<any> {
+    try {
+      const existUser = await this.userModel.findOne({ _id: user.id });
+      if(existUser){
+        if(id){
+          const trackId = id.split('&LIST_ID=')[0]
+          const listId = id.split('&LIST_ID=')[1]
+
+          const list = await this.trackModel.findOne({ listId: listId })
+          if(list) {
+            const parseList= { ...list, items: list.items.map(item => JSON.parse(item)) }
+            const removeTrack = parseList && parseList.items.filter(item => item.id !== trackId)
+            const tracks = list.tracks.filter(track => track !== 'spotify:track:'+ trackId )
+            removeTrack.length > 0 && await this.trackModel.findOneAndUpdate({ listId: listId, userId: user.id }, {$set: { "items": removeTrack.map(i => JSON.stringify(i)) , tracks: tracks} })
+            return 'Track deleted successfully'
+          } else {
+            return 'Error'
+          }
+        }else {
+          return 'Error'
+        }
+      } else {
+        return 'Error'
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
 };
