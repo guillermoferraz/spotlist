@@ -21,6 +21,10 @@ import { ListsModule } from 'src/components/modules/Organisms/Lists';
 /* Styles */
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
+import PlaylistAddCircleIcon from '@mui/icons-material/PlaylistAddCircle';
+import AlbumIcon from '@mui/icons-material/Album';
 import styles from './Home.styles'
 
 export const Home = () => {
@@ -28,8 +32,8 @@ export const Home = () => {
   const navigate = useNavigate();
   const mediaQueryTheme = useTheme();
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
-  const { t, theme, layout } = useSelector((state: RootState) => state.Settings);
-  const { setLayout } = SettingsSlice.actions;
+  const { t, theme, layout, showSearch } = useSelector((state: RootState) => state.Settings);
+  const { setLayout, setShowSearch } = SettingsSlice.actions;
 
   const classes = styles(theme);
   const { user, code } = useSelector((state: RootState) => state.User);
@@ -96,7 +100,7 @@ export const Home = () => {
 
   const PlayerModule = () => {
     return (
-      <Player />
+      !mobile ? <Player /> : <div className={classes.playerMobile}><Player/></div> 
     )
   }
 
@@ -119,11 +123,11 @@ export const Home = () => {
       case 'LISTENING':
         return (<Listening />)
       case 'ALBUM':
-        return (<AlbumModule />)
+        return !mobile ? (<AlbumModule />) : (<div className={classes.albumMobile}><AlbumModule/></div>)
       case 'LISTS':
         return (<ListsModule/>)
       default:
-        return (<CardGroup searchResults= {albumByArtist && albumByArtist.items === undefined ? data?.tracks?.items :  albumByArtist.items} />)
+        return !mobile ? (<CardGroup searchResults= {albumByArtist && albumByArtist.items === undefined ? data?.tracks?.items :  albumByArtist.items} />) : <div className={classes.cardGroupMobile}><CardGroup searchResults= {albumByArtist && albumByArtist.items === undefined ? data?.tracks?.items :  albumByArtist.items} /></div>
     }
   }
 
@@ -147,14 +151,18 @@ export const Home = () => {
     }
   },[top, searchResponse])
 
+  const handleSearchView = () => {
+    dispatch(setShowSearch({value: !showSearch}))
+  }
+
   return (
-    <div className={classes.root}>
+    <div className={mobile ? classes.rootMobile: classes.root}>
       <title>{t.appName}&nbsp;|&nbsp;{t.title.home}</title>
       {denied && <AccessDenied />}
       {loading && <Loading />}
       {data && data.tracks && data.tracks.items.length > 0 && (
         <div className={classes.containerGroup}>
-          <div className={classes.containerBtn}>
+          { !mobile && <div className={classes.containerBtn}>
             {layout !== 'LISTENING' && layout !== 'ALBUM' && <ButtonArrow
               layout={layout}
               condition="LISTS"
@@ -182,12 +190,37 @@ export const Home = () => {
               }}
               onClick={() => handleLayout("ALBUM")}
             />}
-          </div>
-          {LayoutReturn(layout)}
-          {PlayerModule()}
+          </div> }
+
+          {mobile && !showSearch && (
+            <div style={{ display: 'flex', justifyContent: 'center', width: '100vw' }}>
+              <div className={classes.containerIconSearch} onClick={() => handleSearchView()}>
+                <ManageSearchIcon/>
+              </div>
+              <div className={classes.containerIconSearch} onClick={() => handleLayout("ALBUM")} >
+                <LibraryMusicIcon/>
+              </div>
+              <div className={classes.containerIconSearch} onClick={() => handleLayout("LISTS")}>
+                <PlaylistAddCircleIcon/>
+              </div>
+              <div className={classes.containerIconSearch} onClick={() => handleLayout("LISTENING")}>
+                <AlbumIcon/>
+              </div>
+            </div>
+          )}
+
+          {mobile && !showSearch && LayoutReturn(layout)}
+          {!mobile && LayoutReturn(layout)}
+          {!mobile && PlayerModule()}
         </div>
       )}
-      <RightMenu search={search} setSearch={setSearch} handleSearch={handleSearch} onKeyPress={onKeyPress} />
+      {!mobile && <RightMenu search={search} setSearch={setSearch} handleSearch={handleSearch} onKeyPress={onKeyPress} /> }
+      {mobile && showSearch && (
+        <div className={classes.containerSearchView}>
+          <RightMenu search={search} setSearch={setSearch} handleSearch={handleSearch} onKeyPress={onKeyPress} />
+        </div>
+      )}
+      {mobile && PlayerModule()}
     </div>
   )
 }

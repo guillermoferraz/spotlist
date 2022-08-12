@@ -13,9 +13,13 @@ import { Snakbar } from "../../Atoms/Snackbar";
 
 /* styles */
 import styles from './Lists.styles';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const ListsModule = () => {
   const dispatch = useAppDispatch();
+  const mediaQueryTheme = useTheme();
+  const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
   const { theme, t } = useSelector((state: RootState) => state.Settings);
   const { accessToken } = useSelector((state: RootState) => state.Spotify);
   const { saveListResponse, lists, trackList } = useSelector((state: RootState) => state.Lists);
@@ -25,7 +29,7 @@ export const ListsModule = () => {
   const [openModal, setOpenModal] = useState(false);
   const [name, setName] = useState(undefined);
   const [error, setError] = useState(false);
-  const [openAlert, setOpenAlert] = useState({ message: '', type : '', open: false })
+  const [openAlert, setOpenAlert] = useState({ message: '', type: '', open: false })
 
 
   const handleCreate = () => {
@@ -37,7 +41,7 @@ export const ListsModule = () => {
   }
 
   const handleSubmit = () => {
-    if(!name) {
+    if (!name) {
       setError(true)
     } else {
       setError(false)
@@ -53,60 +57,104 @@ export const ListsModule = () => {
   }
 
   useEffect(() => {
-    if(saveListResponse && saveListResponse !== 'Error'){
+    if (saveListResponse && saveListResponse !== 'Error') {
       setOpenAlert({ type: 'success', message: t.alerts.newList, open: true })
       setTimeout(() => { handleClean() }, 1500)
-    } 
-    else if(saveListResponse && saveListResponse === 'Error'){
+    }
+    else if (saveListResponse && saveListResponse === 'Error') {
       setOpenAlert({ type: 'error', message: t.errors.saveList, open: true })
       setTimeout(() => { handleClean() }, 1500)
     } else {
       setOpenAlert({ type: '', message: '', open: false })
     }
-  },[saveListResponse])
+  }, [saveListResponse])
 
   useEffect(() => {
     dispatch(getLists())
-  },[])
+  }, [])
 
 
   return (
-    <div className={classes.root}>
+    <div className={!mobile ? classes.root : classes.rootMobile}>
       <Snakbar open={openAlert.open} setOpen={() => setOpenAlert({ open: false, message: '', type: '' })} type={openAlert.type} message={openAlert.message} />
-      <div className={classes.containerLeft}>
-        {openModal && (
-          <DefaultModal 
-            open={openModal} 
-            setOpen={setOpenModal}
-            error={false}
-            onChange={handleChange}
-            entry
-            type="CREATE"
-            button={(
-              <ButtonModule
-                text={t.create}
-                onClick={() => handleSubmit()}
-                submit={false}
+      {!mobile && (
+        <>
+          <div className={classes.containerLeft}>
+            {openModal && (
+              <DefaultModal
+                open={openModal}
+                setOpen={setOpenModal}
+                error={false}
+                onChange={handleChange}
+                entry
+                type="CREATE"
+                button={(
+                  <ButtonModule
+                    text={t.create}
+                    onClick={() => handleSubmit()}
+                    submit={false}
+                  />
+                )}
               />
             )}
+            <ButtonModule
+              text={t.createList}
+              onClick={() => handleCreate()}
+              submit={false}
             />
-          )}
-        <ButtonModule
-          text={t.createList}
-          onClick={() => handleCreate()}
-          submit={false}
-        />
-        {lists && lists.length === 0 ? (
-        <h4 className={classes.dontPlayLists} >{t.dontPlaylists}</h4>
-        ) : (
-        <TableList/>
-        ) }
-      </div>
-      <div className={classes.containerRight}>
-      { trackList && (
-        <TrackList/>
+            {lists && lists.length === 0 ? (
+              <h4 className={classes.dontPlayLists} >{t.dontPlaylists}</h4>
+            ) : (
+              <TableList />
+            )}
+          </div>
+          <div className={classes.containerRight}>
+            {trackList && (
+              <TrackList />
+            )}
+          </div>
+        </>
       )}
-      </div>
+      {mobile && (
+        <>
+        {openModal && (
+             <div className={classes.containerModalMobile}>
+               <DefaultModal
+                open={openModal}
+                setOpen={setOpenModal}
+                error={false}
+                onChange={handleChange}
+                entry
+                type="CREATE"
+                button={(
+                  <ButtonModule
+                    text={t.create}
+                    onClick={() => handleSubmit()}
+                    submit={false}
+                  />
+                )}
+              />
+             </div>
+            )}
+          <div className={classes.containerLeftMobile}>
+            <ButtonModule
+              text={t.createList}
+              onClick={() => handleCreate()}
+              submit={false}
+            />
+            {lists && lists.length === 0 ? (
+              <h4 className={classes.dontPlayListsMobile} >{t.dontPlaylists}</h4>
+            ) : (
+              <TableList />
+            )}
+          </div>
+          <div className={classes.containerRightMobile}>
+            {trackList && (
+              <TrackList />
+            )}
+          </div>
+        </>
+      )}
     </div>
   )
 }

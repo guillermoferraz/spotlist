@@ -22,10 +22,10 @@ import styles from './Header.styles';
 export const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { dark, theme, t } = useSelector((state: RootState) => state.Settings);
+  const { dark, theme, t, showSearch } = useSelector((state: RootState) => state.Settings);
   const { user } = useSelector((state: RootState) => state.User);
   const classes = styles(theme)
-  const { setTheme, setLocale } = SettingsSlice.actions;
+  const { setTheme, setLocale, setLayout, setShowSearch } = SettingsSlice.actions;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,6 +45,11 @@ export const Header = () => {
     localStorage.removeItem('accDt')
     setAnchorEl(null)
     setTimeout(() => {window.location.replace('/signin')}, 500)
+  }
+
+  const handleGoHome = () => {
+    dispatch(setShowSearch({ value: !showSearch }))
+    setTimeout(() => { dispatch(setLayout({ value: '' })) }, 400)
   }
 
   const list: ListTypes =
@@ -98,10 +103,10 @@ export const Header = () => {
 
   return (
     <div className={classes.root}>
-      <section className={classes.logo} onClick={() => navigate('/home')}>
+      <section className={classes.logo} onClick={() => handleGoHome()}>
         <img src="img/logo.png" alt={`${t.appName}-logo`} title={t.appName} />
       </section>
-      <h1 className={classes.title} onClick={() => navigate('/home')} title={t.appName}>{t.appName}</h1>
+      <h1 className={classes.title} onClick={() => handleGoHome()} title={t.appName}>{t.appName}</h1>
       <section className={classes.iconSetting}>
         <div onClick={handleClick}>
           <TuneIcon />

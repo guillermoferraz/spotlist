@@ -12,8 +12,12 @@ import { Loading } from '../../Layouts/Loading';
 /* Styles */
 import styles from './Listening.styles';
 import ReplayIcon from '@mui/icons-material/Replay';
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export const Listening = () => {
+  const mediaQueryTheme = useTheme();
+  const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
   const { theme } = useSelector((state: RootState) => state.Settings);
   const { accessToken, currentPlayback, loading, selectedData } = useSelector((state: RootState) => state.Spotify);
   const { lyrics, additionalLoading } = useSelector((state: RootState) => state.Additional);
@@ -45,7 +49,7 @@ export const Listening = () => {
 
   useEffect(() => {
     artist && track && dispatch(getLyrics({ artist: artist[0]?.name, track: track }))
-  },[track, artist])
+  }, [track, artist])
 
   const artistName = (artists) => {
     if (artists && artists.length > 0) {
@@ -70,26 +74,52 @@ export const Listening = () => {
   }, [isPlaying])
 
   return (
-    <div className={classes.root}>
-      { (loading || additionalLoading) && <Loading />}
-      <div className={classes.info}>
-        <div className={classes.containerIcon}>
-          <ReplayIcon onClick={() => handleReload()}/>
-        </div>
-        <div>
-          {isPlaying && <img className={classes.image} src={image} />}
-          {artist && <p className={classes.artistName}>{artistName(artist)}</p>}
-          {album && <p className={classes.artistName}>{album}{' '}{date}</p>}
-          {track && <p className={classes.track}>{track}</p>}
-        </div>
-      </div>
-      <div className={classes.lyrics}>
-        {lyrics && (
-          <pre className={classes.textLyrics}>
-            {`${lyrics|| ""}`}
-          </pre>
-        )}
-      </div>
+    <div className={!mobile ? classes.root : classes.rootMobile}>
+      {(loading || additionalLoading) && <Loading />}
+      {!mobile && (
+        <>
+          <div className={classes.info}>
+            <div className={classes.containerIcon}>
+              <ReplayIcon onClick={() => handleReload()} />
+            </div>
+            <div>
+              {isPlaying && <img className={classes.image} src={image} />}
+              {artist && <p className={classes.artistName}>{artistName(artist)}</p>}
+              {album && <p className={classes.artistName}>{album}{' '}{date}</p>}
+              {track && <p className={classes.track}>{track}</p>}
+            </div>
+          </div>
+          <div className={classes.lyrics}>
+            {lyrics && (
+              <pre className={classes.textLyrics}>
+                {`${lyrics || ""}`}
+              </pre>
+            )}
+          </div>
+        </>
+      )}
+      {mobile && (
+        <>
+          <div className={classes.infoMobile}>
+            <div className={classes.containerIconMobile}>
+              <ReplayIcon onClick={() => handleReload()} />
+            </div>
+            <div>
+              {isPlaying && <img className={classes.imageMobile} src={image} />}
+              {artist && <p className={classes.artistNameMobile}>{artistName(artist)}</p>}
+              {album && <p className={classes.artistNameMobile}>{album}{' '}{date}</p>}
+              {track && <p className={classes.trackMobile}>{track}</p>}
+            </div>
+            <div className={classes.lyricsMobile}>
+            {lyrics && (
+              <pre className={classes.textLyricsMobile}>
+                {`${lyrics || ""}`}
+              </pre>
+            )}
+          </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

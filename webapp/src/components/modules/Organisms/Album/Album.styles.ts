@@ -28,6 +28,45 @@ const styles = makeStyles({
     containerFlex:{
         display: 'flex',
         width: '100%'
+    },
+    rootMobile: {
+        minHeight: '70vh',
+        minWidth: '100vw',
+        backgroundColor: (props: ThemeTypes) => props.bgSecondary,
+        borderRadius: 25
+    },
+    contentMobile:{
+    },
+    artistNameMobile:{
+        color: (props: ThemeTypes) => props.colorPrimary,
+        textAlign: 'center',
+        letterSpacing: 2,
+        paddingTop: 15,
+        fontSize: '0.8rem'
+    },
+    conteinerImgMobile:{
+        '&>img':{
+            maxWidth: '10rem',
+            maxHeight: '10rem',
+            margin: 15,
+            borderRadius: '50%'
+        }
+    },
+    containerFlexMobile:{
+      height: '60vh',
+      '&>:nth-child(1)':{
+        textAlign: 'center'
+      },
+      '&>div':{
+        margin: 'auto',
+      }
+    },
+    containerAlbumList:{
+        '&>div':{
+            margin: 'auto',
+            maxHeight: '37vh',
+            width: '90vw'
+        }
     }
 });
 export default styles;
