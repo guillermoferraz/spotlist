@@ -4,6 +4,7 @@
   "description": "spotlist api , app of music (api spotify)",
   "author": "Guillermo Ferraz",
   "license": "MIT",
+  "main": "server.ts",
   "scripts": {
     "start": "ts-node-dev --respawn src/server.ts",
     "test": "jest",
