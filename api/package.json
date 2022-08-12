@@ -1,8 +1,8 @@
 {
-  "name": "express-react-skeleton",
+  "name": "spotlist",
   "version": "1.0.0",
-  "description": "Rviewer - Fullstack skeleton with Express & React",
-  "author": "Rviewer Team (help@rviewer.io)",
+  "description": "spotlist api , app of music (api spotify)",
+  "author": "Guillermo Ferraz",
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --respawn src/server.ts",
