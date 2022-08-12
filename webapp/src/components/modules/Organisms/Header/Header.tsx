@@ -16,14 +16,16 @@ import { ListTypes } from '../../Molecules/Menu/Menu.types';
 import TuneIcon from '@mui/icons-material/Tune';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import LogoutIcon from '@mui/icons-material/Logout';
 import styles from './Header.styles';
 
 export const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { dark, theme, t } = useSelector((state: RootState) => state.Settings);
+  const { dark, theme, t, showSearch } = useSelector((state: RootState) => state.Settings);
+  const { user } = useSelector((state: RootState) => state.User);
   const classes = styles(theme)
-  const { setTheme, setLocale } = SettingsSlice.actions;
+  const { setTheme, setLocale, setLayout, setShowSearch } = SettingsSlice.actions;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -37,6 +39,19 @@ export const Header = () => {
   const handleChangeLng = (lng) => {
     dispatch(setLocale(lng))
   }
+  const handleLogout = () => {
+    localStorage.removeItem('spt_tkn')
+    localStorage.removeItem('refTkn')
+    localStorage.removeItem('accDt')
+    setAnchorEl(null)
+    setTimeout(() => {window.location.replace('/signin')}, 500)
+  }
+
+  const handleGoHome = () => {
+    dispatch(setShowSearch({ value: !showSearch }))
+    setTimeout(() => { dispatch(setLayout({ value: '' })) }, 400)
+  }
+
   const list: ListTypes =
   {
     sections: [
@@ -70,16 +85,28 @@ export const Header = () => {
             />
           }
         ]
-      }
+      },
+      {
+       title: '',
+        items: [
+          {
+            name: `${t.logout}`,
+            action: () => handleLogout(),
+            module: <LogoutIcon className={classes.logout}/>
+          },
+        ]
+      },
     ]
   };
-  
+
+  const listData = user?.access === "Authorized" ? { sections: list.sections } : { sections: list.sections.slice(0, list.sections.length -1)};
+
   return (
     <div className={classes.root}>
-      <section className={classes.logo} onClick={() => navigate('/')}>
+      <section className={classes.logo} onClick={() => handleGoHome()}>
         <img src="img/logo.png" alt={`${t.appName}-logo`} title={t.appName} />
       </section>
-      <h1 className={classes.title} onClick={() => navigate('/')} title={t.appName}>{t.appName}</h1>
+      <h1 className={classes.title} onClick={() => handleGoHome()} title={t.appName}>{t.appName}</h1>
       <section className={classes.iconSetting}>
         <div onClick={handleClick}>
           <TuneIcon />
@@ -88,7 +115,7 @@ export const Header = () => {
           anchorEl={anchorEl}
           open={open}
           onClose={() => setAnchorEl(null)}
-          list={list}
+          list={listData}
         />
       </section>
     </div>

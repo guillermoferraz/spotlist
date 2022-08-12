@@ -4,11 +4,25 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
   ...globals,
   en: 'Ingles',
   es: 'Espanol',
+  description: 'El sitio para tu música',
+  spotifyInfo: "Para proporcionarle contenido musical, hemos obtenido los datos de Spotify Api Developers. Puede continuar presionando el botón de abajo.",
   language: 'Idioma',
   theme: 'Tema',
+  logout: 'Cerrar sesión',
+  search: "Buscar",
+  add: "Agregar",
+  lists: 'Listas',
+  createList: 'Crear nueva lista',
+  create: 'Crear',
+  edit: 'Editar',
+  dontPlaylists: "Aún no tienes ninguna lista de reproducción",
+  playbackPanel: 'Panel de reproducción',
+  confirmDelete: '¿Está seguro de que desea eliminar esta lista?',
+  selectList: 'Selecciona una lista para agregar la canción',
   title: {
     signin: "Iniciar sesión",
-    signup: "Regístrate"
+    signup: "Regístrate",
+    home: 'Inicio'
   },
   labels: {
     email: 'Correo electrónico',
@@ -19,17 +33,39 @@ const es: { [key: string]: string | { [key: string]: string } | any } = {
     notRememberPassword: 'No recuerdas tu contraseña ?',
     recover: "Recuperar",
     alreadyAccount: "Ya tienes una cuenta ?",
+    name: "Nombre"
   },
   buttons: {
     signin: "Iniciar sesión",
-    signup: "Regístrate"
+    signup: "Regístrate",
+    getInto: "Ingresar"
   },
   errors:{
     required: 'Entrada requerida! *',
     email: 'Correo electrónico invalido',
     confEmail: 'El Correo electrónico y la confirmación no coinciden',
     password: 'La contraseña debe tener como minimo 8 caracteres y debe contener al menos una mayúscula , una minúscula y un carácter especial(simbolo)',
-    confPassword: 'La contraseña y la confirmación no coinciden'
-  }
+    confPassword: 'La contraseña y la confirmación no coinciden',
+    saveList: 'Ah ocurrido un error al guardar su lista, por favor vuelva  a intentarlo',
+    removeList: 'Ocurrió un error al eliminar su lista, intente nuevamente',
+    updateList: 'Ah ocurrido un error al actualizar su lista, por favor vuelva a intentarlo',
+    addTrack: 'Ah ocurrido un error al agregar su track, por favor vuelva a intentarlo',
+    deleteTrack: 'Ah ocurrido un error al eliminar su track, por favor vuelva a intentarlo'
+  },
+  alerts:{
+    userNotFound: 'Usuario no encontrado',
+    incorrectPassword: 'Contraseña incorrecta',
+    successLogin: "Inicio de sesion exitoso",
+    emailAlreadyExist: "El correo electrónico ingresado ya esta siendo utilizado",
+    successRegister: "Registro exitoso",
+    newList: 'Nueva lista agregada con exito',
+    removeList: 'Lista eliminada correctamente',
+    updateList: 'Su lista se ha actualizado exitosamente',
+    addTrack: 'Su track se ha agregado exitosamente',
+    deleteTrack: 'Su track se a eliminado exitosamente'
+  },
+  wait: 'Por favor espere ...',
+  accessDenied: 'Acceso denegado',
+  accessDeniedInfo: 'Por favor vuelva a iniciar sesión'
 };
 export default es;

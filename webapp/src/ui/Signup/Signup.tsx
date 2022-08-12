@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 /* Store */
-import { RootState } from "../../services/Store";
+import { RootState, useAppDispatch } from "../../services/Store";
+import AuthSlice, { Signup as sendFormData } from "src/application/Auth";
 
 /* Modules */
 import { Logo } from 'src/components/modules/Atoms/Logo';
 import { ButtonModule } from 'src/components/modules/Atoms/Button';
 import { Form } from "src/components/modules/Organisms/Form";
+import { Snakbar } from "src/components/modules/Atoms/Snackbar";
+import { SplitScreen } from "src/components/modules/Organisms/SplitScreen";
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
@@ -26,10 +29,13 @@ import { EntryTypes, ErrorRegisterTypes } from "src/components/modules/Organisms
 import { isValidEmail, isValidPassword } from "src/application/Validators";
 
 export const Signup = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mediaQueryTheme = useTheme();
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'));
   const { theme, t } = useSelector((state: RootState) => state.Settings);
+  const { signupResponse } = useSelector((state: RootState) => state.Auth);
+  const { setSignupResponse } = AuthSlice.actions;
   const classes = styles(theme);
 
   const [registerData, setRegisterData] = useState<SignupTypes>({
@@ -52,6 +58,49 @@ export const Signup = () => {
     password: false,
     confPassword: false
   });
+  const [alertResponse , setAlertResponse] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
+
+
+  const handleCleanResponse = (type: string) => {
+    if(type === 'success'){
+      dispatch(setSignupResponse({ message: '' }))
+      setAlertResponse({ open: false, message: '', type: '' })
+      navigate('/signin')
+    } else {
+      dispatch(setSignupResponse({ message: '' }))
+    }
+  }
+
+  useEffect(() => {
+    switch(signupResponse.message){
+      case 'The email entered already exists':
+        setAlertResponse({
+          open: true,
+          message: t.alerts.emailAlreadyExist,
+          type: 'error'
+        })
+        setTimeout(() => { handleCleanResponse('error') }, 1500)
+        break;
+      case 'Success':
+        setAlertResponse({
+          open: true,
+          message: t.alerts.successRegister,
+          type: 'success'
+        })
+        setTimeout(() => { handleCleanResponse('success') }, 1500)
+        break;
+      default:
+        setAlertResponse({
+          open: false,
+          message: '',
+          type: ''
+        })
+    }
+  },[signupResponse])
 
   const handleSubmit = () => {
     if (
@@ -59,7 +108,10 @@ export const Signup = () => {
       !errors.confEmail && registerData.confEmail !== '' &&
       !errors.password && registerData.password !== '' &&
       !errors.confPassword && registerData.confPassword !== ''
-    ) console.log('submit data Register:')
+    ) dispatch(sendFormData({
+      email: registerData.email,
+      password: registerData.password
+    }))
     else {
       const emptyEntries = Object.entries(registerData).filter(v => v[1] === '')
       emptyEntries.length > 0 && emptyEntries.reverse().map(entry => {
@@ -152,7 +204,7 @@ export const Signup = () => {
       onChange: (event) => handleDataCollected({ event: event.currentTarget.value, type: CONSTANTS_ENTRY.confPassword }),
       iconEntry:
         <>
-          <KeyOutlinedIcon style={{ color: theme.colorPalletPrimary, marginRight: 10}} />
+          <KeyOutlinedIcon style={{ color: theme.colorPalletPrimary, marginRight: 10 }} />
           {!showPass.confPassword ?
             <VisibilityOutlinedIcon style={{ color: theme.colorPalletPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.confPassword)} />
             : <VisibilityOffOutlinedIcon style={{ color: theme.colorPrimary }} onClick={() => handleShowPass(CONSTANTS_ENTRY.confPassword)} />}
@@ -162,16 +214,20 @@ export const Signup = () => {
 
   return (
     <div className={classes.root}>
+      {alertResponse.open && <Snakbar message={alertResponse.message} type={alertResponse.type} open={alertResponse.open} setOpen={() => setAlertResponse({ open: false, message: '', type: '' })} />}
       <title>{`${t.appName} | ${t.title.signup}`}</title>
+      <div className={!mobile ? classes.split : classes.noSplit}>
+      {!mobile && <SplitScreen/>}
       <section className={classes.content}>
         {mobile && <Logo />}
         <h1 className={classes.title}>{t.title.signup}</h1>
         <Form
           styleProps={{ width: 0 }}
           entries={listEntries}
+          onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}
           submitElement={
             <>
-              <div className={classes.containerBtn}>
+              <div>
                 <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
                 <ButtonModule
                   text={t.buttons.signup}
@@ -184,6 +240,7 @@ export const Signup = () => {
           }
         />
       </section>
+      </div>
     </div>
   )
 }

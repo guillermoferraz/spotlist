@@ -1,7 +1,8 @@
 {
-  "name": "express-react-skeleton",
+  "name": "spotlis",
   "version": "1.0.0",
-  "description": "Rviewer - Fullstack skeleton with Express & React",
-  "author": "Rviewer Team (help@rviewer.io)",
-  "license": "MIT"
+  "description": "Spotlist App of music(api spotify)",
+  "author": "Guillermo Ferraz",
+  "license": "MIT",
+  "type": "module"
 }

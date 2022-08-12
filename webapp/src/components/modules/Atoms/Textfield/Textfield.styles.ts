@@ -14,7 +14,7 @@ const styles = makeStyles({
       },
       '&>.MuiFilledInput-root': {
         color: (props: ThemeTypes) => props.colorPrimary,
-        backgroundColor: (props: ThemeTypes) => props.bgLight,
+        backgroundColor: (props: ThemeTypes) => props.bgPrimary,
         '&::after': {
           borderBottom: (props: ThemeTypes) => props?.error ? '2px solid red' : '2px solid green' ,
           

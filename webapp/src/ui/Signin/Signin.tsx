@@ -1,18 +1,23 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 /* Store */
-import { RootState } from "src/services/Store";
+import { RootState, useAppDispatch } from "src/services/Store";
+import AuthSlice, { Signin as Login, VerifyToken } from 'src/application/Auth';
+
 
 /* Modules */
 import { Logo } from 'src/components/modules/Atoms/Logo';
 import { ButtonModule } from 'src/components/modules/Atoms/Button';
 import { Form } from 'src/components/modules/Organisms/Form';
+import { Loading } from 'src/components/modules/Layouts/Loading';
+import { Snakbar } from 'src/components/modules/Atoms/Snackbar';
 
 import { SigninTypes, CONSTANTS_ENTRY } from "src/components/schemas/Auth.Schema";
 import { EntryTypes, ErrorRegisterTypes } from "src/components/modules/Organisms/Form/Form.types";
 import { isValidEmail, isValidPassword } from "src/application/Validators";
+import { SplitScreen } from 'src/components/modules/Organisms/SplitScreen';
 
 /* Styles */
 import { useTheme } from "@mui/material/styles";
@@ -27,8 +32,11 @@ import styles from './Signin.styles';
 export const Signin = () => {
   const navigate = useNavigate();
   const mediaQueryTheme = useTheme()
+  const dispatch = useAppDispatch();
   const mobile = useMediaQuery(mediaQueryTheme.breakpoints.down('sm'))
   const { theme, t } = useSelector((state: RootState) => state.Settings);
+  const { signinResponse, loading, verifyResponse } = useSelector((state: RootState) => state.Auth)
+  const { setVerifyToken, setSaveToken } = AuthSlice.actions;
   const classes = styles(theme)
 
   const [loginData, setLoginData] = useState<SigninTypes>({
@@ -43,19 +51,73 @@ export const Signin = () => {
     helperPassword: '',
   });
   const [showPass, setShowPass] = useState<{[key:string]: boolean}>({ password: false })
+  const [token, setToken] = useState<string>('');
 
-  console.log(loginData)
+
+  const [openAlert, setOpenAlert] = useState<{type: string, message: string, open: boolean }>({
+    type: '',
+    message: '',
+    open: false,
+  })
 
   const handleShowPass = (entry) => {
     if (entry === CONSTANTS_ENTRY.password) setShowPass({ password: !showPass.password })
   }
 
+  const translateMessage = (msg) => {
+    switch(msg){
+      case 'User not registered':
+        return t.alerts.userNotFound
+      case "The password given is not correct":
+        return t.alerts.incorrectPassword
+      case 'Success login':
+        return t.alerts.successLogin
+      default:
+        return ""
+    }
+  }
+
+  const handleRedirectToken = (token: string) => {
+    setToken(token)
+    dispatch(VerifyToken(token))
+  }
+  const handleRedirectHome = () => {
+    setOpenAlert({ type: '', message: '' , open: false});
+    navigate('/spotifyLogin')
+  }
+
+  useEffect(() => {
+    if(verifyResponse && verifyResponse?.message === 'Access Success'){
+      dispatch(setSaveToken({ token: token }));
+      dispatch(setVerifyToken({ value: '' }))
+      setToken('');
+      setOpenAlert({ type: 'success', message: translateMessage(signinResponse.detail) , open: true});
+      setTimeout(handleRedirectHome, 1000)
+    }
+  },[verifyResponse])
+
+  useEffect(() => {
+    if(signinResponse){
+      switch(signinResponse.detail){
+        case 'User not registered':
+        case 'The password given is not correct':
+          setOpenAlert({ type: 'error', message: translateMessage(signinResponse.detail) , open: true});
+          break;
+        case 'Success login':
+          handleRedirectToken(signinResponse.token)
+          break;          
+        default:
+          setOpenAlert({ type: '', message: '' , open: false });
+          break;
+      }
+    }
+  },[signinResponse])
 
   const handleSubmit = () => {
     if (
       !errors.email && loginData.email !== '' &&
       !errors.password && loginData.password !== ''
-    ) console.log('submit data Register:')
+    ) dispatch(Login(loginData))
     else {
       const emptyEntries = Object.entries(loginData).filter(v => v[1] === '')
       emptyEntries.length > 0 && emptyEntries.reverse().map(entry => {
@@ -83,6 +145,10 @@ export const Signin = () => {
       default:
     }
   }, [loginData])
+
+  const handleClose = () => {
+    setOpenAlert({ ...openAlert, open: false  })
+  }
 
   const listEntries: EntryTypes[] = [
     {
@@ -113,19 +179,23 @@ export const Signin = () => {
       </>
     }
   ]
-
   return (
     <div className={classes.root}>
       <title>{`${t.appName} | ${t.title.signin}`}</title>
+      {loading && <Loading/>}
+      {openAlert.open && <Snakbar type={openAlert.type} message={openAlert.message} setOpen={handleClose} open={openAlert.open} />}
+      <div className={!mobile ? classes.split : classes.noSplit}>
+      {!mobile && <SplitScreen/>}
       <section className={classes.content}>
         {mobile && <Logo />}
         <h1 className={classes.title}>{t.title.signin}</h1>
         <Form
           styleProps={{ width: 0 }}
           entries={listEntries}
+          onKeyDown={(event) => event.key === "Enter" && handleSubmit()}
           submitElement={
             <>
-              <div className={classes.containerBtn}>
+              <div>
                 <p className={classes.infoText}>{t.labels.notRememberPassword}&nbsp;<span>{t.labels.recover}</span></p>
                 <ButtonModule
                   text={t.buttons.signin}
@@ -138,6 +208,7 @@ export const Signin = () => {
           }
         />
       </section>
+      </div>
     </div>
   )
 }

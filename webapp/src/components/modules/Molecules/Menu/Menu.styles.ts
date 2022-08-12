@@ -4,7 +4,8 @@ import { ThemeTypes } from 'src/Assets/Themes/Theme.types';
 const styles = makeStyles({
   list: {
     '&>.MuiPaper-root': {
-      backgroundColor: (props: ThemeTypes) => props.bgLight,
+      boxShadow: (props: ThemeTypes) => `0px 3px 16px ${props.colorPalletPrimary}`,
+      backgroundColor: (props: ThemeTypes) => props.bgSecondary,
       color: (props: ThemeTypes) => props.colorPrimary,
       '&>ul': {
         '&>:nth-child(4)': {
@@ -24,7 +25,7 @@ const styles = makeStyles({
         marginTop: 5,
         padding: 0,
       },
-    }
+    },
   },
   label: {
     fontSize: '0.8rem',
@@ -32,7 +33,6 @@ const styles = makeStyles({
     color: (props: ThemeTypes) => props.colorHover
   },
   divider: {
-    border: (props: ThemeTypes) => `1px solid ${props.bgHover}`
   }
 });
 export default styles;

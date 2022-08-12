@@ -45,6 +45,14 @@ const styles = makeStyles({
   },
   lightMode: {
     color: (props: ThemeTypes) => props.lightMode
+  },
+  logout: {
+    color:(props: ThemeTypes) => props.colorPrimary,
+    marginInlineStart: 'auto',
+    paddingLeft: 5,
+    '&:hover':{
+      color:(props: ThemeTypes) => props.colorPalletPrimary,
+    }
   }
 });
 export default styles;

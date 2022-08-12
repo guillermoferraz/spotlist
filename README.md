@@ -12,6 +12,7 @@
  `docker ps`
 * The creation of the docker network:
  `dcoker network ls`
+ 
  * your new network will be
 ```
 | NEWWORK ID  | NAME         | DRIVER   |  SCOPE  |
@@ -32,4 +33,5 @@ docker logs --follow rv-deliver-app-fullstack-api
 ### To terminate the servers run:
 ```
 docker-compose down
+
 ```%                      
